@@ -15,10 +15,15 @@ const nextConfig: NextConfig = {
   },
 }
 
+import createNextIntlPlugin from 'next-intl/plugin';
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+
 const isSentryEnabled = process.env.NEXT_PUBLIC_SENTRY_DSN && process.env.SENTRY_ORG && process.env.SENTRY_PROJECT
 
+const configWithIntl = withNextIntl(nextConfig);
+
 export default isSentryEnabled
-  ? withSentryConfig(nextConfig, {
+  ? withSentryConfig(configWithIntl, {
       silent: !process.env.CI,
       org: process.env.SENTRY_ORG,
       project: process.env.SENTRY_PROJECT,
@@ -26,4 +31,5 @@ export default isSentryEnabled
       widenClientFileUpload: true,
       tunnelRoute: "/monitoring",
     })
-  : nextConfig
+  : configWithIntl
+

@@ -27,6 +27,8 @@ import { ColoredText } from "../ui/colored-text"
 import { Blinker } from "./blinker"
 import { SidebarMenuItemWithHighlight } from "./sidebar-item"
 import SidebarUser from "./sidebar-user"
+import { useTranslations } from "next-intl"
+import { LanguageSwitcher } from "@/components/ui/language-switcher"
 
 export function AppSidebar({
   profile,
@@ -40,6 +42,7 @@ export function AppSidebar({
   const { open, setOpenMobile } = useSidebar()
   const pathname = usePathname()
   const { notification } = useNotification()
+  const t = useTranslations("Navigation")
 
   // Hide sidebar on mobile when clicking an item
   useEffect(() => {
@@ -73,7 +76,7 @@ export function AppSidebar({
                   <SidebarMenuButton asChild>
                     <Link href="/dashboard">
                       <House />
-                      <span>Home</span>
+                      <span>{t("dashboard")}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItemWithHighlight>
@@ -82,7 +85,7 @@ export function AppSidebar({
                   <SidebarMenuButton asChild>
                     <Link href="/transactions">
                       <FileText />
-                      <span>Transactions</span>
+                      <span>{t("transactions")}</span>
                       {notification && notification.code === "sidebar.transactions" && notification.message && (
                         <Blinker />
                       )}
@@ -95,7 +98,7 @@ export function AppSidebar({
                   <SidebarMenuButton asChild>
                     <Link href="/unsorted">
                       <ClockArrowUp />
-                      <span>Unsorted</span>
+                      <span>{t("unsorted")}</span>
                       {unsortedFilesCount > 0 && (
                         <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
                           {unsortedFilesCount}
@@ -118,7 +121,7 @@ export function AppSidebar({
                   <SidebarMenuButton asChild>
                     <Link href="/settings">
                       <Settings />
-                      <span>Settings</span>
+                      <span>{t("settings")}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItemWithHighlight>
@@ -138,6 +141,12 @@ export function AppSidebar({
                       Import from CSV
                     </Link>
                   </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                   <div className="flex w-full items-center gap-2 pl-2 mt-1 mb-1 text-sm text-sidebar-foreground">
+                      <LanguageSwitcher /> 
+                      {open && <span>Language</span>}
+                   </div>
                 </SidebarMenuItem>
                 {isSelfHosted && (
                   <SidebarMenuItem>

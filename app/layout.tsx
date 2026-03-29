@@ -42,10 +42,24 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { cookies } from 'next/headers';
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en';
+  
+  // To avoid Next.js caching or static errors, NextIntl's getMessages reads from request config
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-white antialiased">{children}</body>
+    <html lang={locale}>
+      <body className="min-h-screen bg-white antialiased">
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   )
 }

@@ -13,6 +13,8 @@ import { getProjects } from "@/models/projects"
 import { getSettings } from "@/models/settings"
 import { Button } from "../ui/button"
 import TransactionCreateForm from "./create"
+import { getTranslations } from "next-intl/server"
+import { cookies } from "next/headers"
 
 export async function NewTransactionDialog({ 
   children,
@@ -26,6 +28,10 @@ export async function NewTransactionDialog({
   const currencies = await getCurrencies(user.id)
   const settings = await getSettings(user.id)
   const projects = await getProjects(user.id)
+  
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  const t = await getTranslations({ locale, namespace: "Transactions" })
 
   return (
     <Dialog>
@@ -34,8 +40,8 @@ export async function NewTransactionDialog({
       </DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">New Transaction</DialogTitle>
-          <DialogDescription>Create a new transaction</DialogDescription>
+          <DialogTitle className="text-2xl font-bold">{t("title")}</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
 
         <TransactionCreateForm
@@ -48,3 +54,4 @@ export async function NewTransactionDialog({
     </Dialog>
   )
 }
+

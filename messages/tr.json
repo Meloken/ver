@@ -1,0 +1,22 @@
+{
+  "Navigation": {
+    "dashboard": "Gösterge Paneli",
+    "transactions": "İşlemler",
+    "unsorted": "Ayrılmamış",
+    "projects": "Projeler",
+    "settings": "Ayarlar"
+  },
+  "Transactions": {
+    "title": "İşlemler",
+    "export": "Dışa Aktar",
+    "addTransaction": "İşlem Ekle",
+    "addManually": "Manuel Ekle",
+    "analyzeInvoice": "Yeni Fatura Yükle",
+    "emptyState": "Henüz hiç işleminiz yok gibi görünüyor. Hadi ilk işlemi oluşturarak başlayalım!"
+  },
+  "Common": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "loading": "Yükleniyor..."
+  }
+}

@@ -19,11 +19,18 @@ export const metadata: Metadata = {
   description: "Manage your transactions",
 }
 
+import { getTranslations } from "next-intl/server"
+import { cookies } from "next/headers"
+
 const TRANSACTIONS_PER_PAGE = 500
 
 export default async function TransactionsPage({ searchParams }: { searchParams: Promise<TransactionFilters> }) {
   const { page, ...filters } = await searchParams
   const user = await getCurrentUser()
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  const t = await getTranslations({ locale, namespace: "Transactions" })
+
   const { transactions, total } = await getTransactions(user.id, filters, {
     limit: TRANSACTIONS_PER_PAGE,
     offset: ((page ?? 1) - 1) * TRANSACTIONS_PER_PAGE,
@@ -42,15 +49,15 @@ export default async function TransactionsPage({ searchParams }: { searchParams:
     <>
       <header className="flex flex-wrap items-center justify-between gap-2 mb-8">
         <h2 className="flex flex-row gap-3 md:gap-5">
-          <span className="text-3xl font-bold tracking-tight">Transactions</span>
+          <span className="text-3xl font-bold tracking-tight">{t("title")}</span>
           <span className="text-3xl tracking-tight opacity-20">{total}</span>
         </h2>
         <div className="flex gap-2">
           <ExportTransactionsDialog fields={fields} categories={categories} projects={projects} total={total}>
-            <Download /> <span className="hidden md:block">Export</span>
+            <Download /> <span className="hidden md:block">{t("export")}</span>
           </ExportTransactionsDialog>
           <NewTransactionDialog>
-            <Plus /> <span className="hidden md:block">Add Transaction</span>
+            <Plus /> <span className="hidden md:block">{t("addTransaction")}</span>
           </NewTransactionDialog>
         </div>
       </header>
@@ -64,17 +71,15 @@ export default async function TransactionsPage({ searchParams }: { searchParams:
 
         {transactions.length === 0 && (
           <div className="flex flex-col items-center justify-center gap-2 h-full min-h-[400px]">
-            <p className="text-muted-foreground">
-              You don&apos;t seem to have any transactions yet. Let&apos;s start and create the first one!
-            </p>
+            <p className="text-muted-foreground">{t("emptyState")}</p>
             <div className="flex flex-row gap-5 mt-8">
               <UploadButton>
-                <Upload /> Analyze New Invoice
+                <Upload /> {t("analyzeInvoice")}
               </UploadButton>
               <NewTransactionDialog asChild>
                 <Button variant="outline">
                   <Plus />
-                  Add Manually
+                  {t("addManually")}
                 </Button>
               </NewTransactionDialog>
             </div>

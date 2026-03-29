@@ -4,7 +4,7 @@ import React from "react"
 import { Resend } from "resend"
 import config from "./config"
 
-export const resend = new Resend(config.email.apiKey)
+export const resend = new Resend(config.email.apiKey || "re_123")
 
 export async function sendOTPCodeEmail({ email, otp }: { email: string; otp: string }) {
   const html = React.createElement(OTPEmail, { otp })

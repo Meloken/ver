@@ -14,7 +14,13 @@ import { getSettings } from "@/models/settings"
 import { Button } from "../ui/button"
 import TransactionCreateForm from "./create"
 
-export async function NewTransactionDialog({ children }: { children: React.ReactNode }) {
+export async function NewTransactionDialog({ 
+  children,
+  asChild,
+}: { 
+  children: React.ReactNode
+  asChild?: boolean
+}) {
   const user = await getCurrentUser()
   const categories = await getCategories(user.id)
   const currencies = await getCurrencies(user.id)
@@ -24,7 +30,7 @@ export async function NewTransactionDialog({ children }: { children: React.React
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>{children}</Button>
+        {asChild ? children : <Button>{children}</Button>}
       </DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader>

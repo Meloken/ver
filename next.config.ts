@@ -2,16 +2,16 @@ import { withSentryConfig } from "@sentry/nextjs"
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true, // TODO: make me linting again
-  },
   images: {
-    unoptimized: true, // FIXME: bug on prod, images always empty, investigate later
+    remotePatterns: [],
   },
   experimental: {
     serverActions: {
       bodySizeLimit: "50mb",
     },
+  },
+  turbopack: {
+    root: ".",
   },
 }
 

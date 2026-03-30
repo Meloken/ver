@@ -3,7 +3,15 @@ import { getSessionCookie } from "better-auth/cookies"
 import { NextRequest, NextResponse } from "next/server"
 
 export default async function middleware(request: NextRequest) {
+  // Skip middleware for API routes and static files
+  const pathname = request.nextUrl.pathname
+  if (pathname.startsWith("/api/") || pathname.startsWith("/_next/") || pathname.startsWith("/monitoring")) {
+    return NextResponse.next()
+  }
+
   if (globalConfig.selfHosted.isEnabled) {
+    // Self-hosted mode: allow all authenticated routes
+    // Auth is handled by getCurrentUser() in server components
     return NextResponse.next()
   }
 
@@ -23,5 +31,7 @@ export const config = {
     "/unsorted/:path*",
     "/files/:path*",
     "/dashboard/:path*",
+    "/apps/:path*",
   ],
 }
+

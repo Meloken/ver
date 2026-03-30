@@ -34,7 +34,7 @@ export function ChartsWidget({ transactions }: ChartsWidgetProps) {
       return acc
     }, new Map<string, number>()).entries()
   )
-    .map(([name, value]) => ({ name, value as number }))
+    .map(([name, value]) => ({ name, value: value as number }))
     .sort((a, b) => b.value - a.value)
     // take top 5
     .slice(0, 5)

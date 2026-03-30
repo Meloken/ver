@@ -100,7 +100,7 @@ export default function ScreenDropArea({ children }: { children: React.ReactNode
         }
       }
     },
-    [transactionId, router, showNotification]
+    [transactionId, router, showNotification, t]
   )
 
   // Add event listeners to document body

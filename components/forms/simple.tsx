@@ -243,6 +243,7 @@ export const FormAvatar = ({
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 } & InputHTMLAttributes<HTMLInputElement>) => {
   const [preview, setPreview] = useState<string | null>(defaultValue || null)
+  const t = useTranslations("CurrencyConverter")
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -266,10 +267,11 @@ export const FormAvatar = ({
       <div className={cn("relative group", className)}>
         <div className="absolute inset-0 flex items-center justify-center bg-background rounded-lg overflow-hidden">
           {preview ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img src={preview} alt="Avatar preview" className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full bg-muted flex items-center justify-center">
-              <span className="text-muted-foreground">{useTranslations("CurrencyConverter")("noImage")}</span>
+              <span className="text-muted-foreground">{t("noImage")}</span>
             </div>
           )}
         </div>

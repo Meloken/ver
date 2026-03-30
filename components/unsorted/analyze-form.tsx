@@ -85,7 +85,7 @@ export default function AnalyzeForm({
     const cachedResults = file.cachedParseResult
       ? Object.fromEntries(
           Object.entries(file.cachedParseResult as Record<string, string>).filter(
-            ([_, value]) => value !== null && value !== undefined && value !== ""
+            ([, value]) => value !== null && value !== undefined && value !== ""
           )
         )
       : {}
@@ -130,7 +130,7 @@ export default function AnalyzeForm({
       } else {
         const nonEmptyFields = Object.fromEntries(
           Object.entries(results.data?.output || {}).filter(
-            ([_, value]) => value !== null && value !== undefined && value !== ""
+            ([, value]) => value !== null && value !== undefined && value !== ""
           )
         )
         setFormData({ ...formData, ...nonEmptyFields })
@@ -205,7 +205,9 @@ export default function AnalyzeForm({
             value={formData.total || ""}
             onChange={(e) => {
               const newValue = parseFloat(e.target.value || "0")
-              !isNaN(newValue) && setFormData((prev) => ({ ...prev, total: newValue }))
+              if (!isNaN(newValue)) {
+                setFormData((prev) => ({ ...prev, total: newValue }))
+              }
             }}
             className="w-32"
             required={fieldMap.total.isRequired}

@@ -24,6 +24,7 @@ import { InvoiceAppData } from "./page"
 
 export async function generateInvoicePDF(data: InvoiceFormData): Promise<Uint8Array> {
   const pdfElement = createElement(InvoicePDF, { data })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const buffer = await renderToBuffer(pdfElement as any)
   return new Uint8Array(buffer)
 }

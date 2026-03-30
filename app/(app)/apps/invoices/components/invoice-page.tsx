@@ -55,6 +55,7 @@ export interface InvoiceFormData {
 
 interface InvoicePageProps {
   invoiceData: InvoiceFormData
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: React.Dispatch<any>
   currencies: Currency[]
 }

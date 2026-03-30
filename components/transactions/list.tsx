@@ -17,6 +17,7 @@ type FieldRenderer = {
   code: string
   classes?: string
   sortable: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formatValue?: (transaction: Transaction & any) => React.ReactNode
   footerValue?: (transactions: Transaction[]) => React.ReactNode
 }
@@ -259,7 +260,7 @@ export function TransactionList({ transactions, fields = [] }: { transactions: T
       params.delete("ordering")
     }
     router.push(`/transactions?${params.toString()}`)
-  }, [sorting])
+  }, [sorting, router, searchParams])
 
   const getSortIcon = (field: string) => {
     if (sorting.field !== field) return null
@@ -315,7 +316,7 @@ export function TransactionList({ transactions, fields = [] }: { transactions: T
                 />
               </TableCell>
               {visibleFields.map((field) => (
-                <TableCell key={field.code} className={field.renderer.classes}>
+                <TableCell key={field.code} className={field.renderer.classes} suppressHydrationWarning>
                   {renderFieldInTable(transaction, field)}
                 </TableCell>
               ))}

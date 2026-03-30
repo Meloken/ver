@@ -186,7 +186,7 @@ export async function splitFileIntoItemsAction(
         filename: fileName,
         path: relativeFilePath,
         mimetype: originalFile.mimetype,
-        metadata: originalFile.metadata,
+        metadata: originalFile.metadata || undefined,
         isSplitted: true,
         cachedParseResult: {
           name: item.name,

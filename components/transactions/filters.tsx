@@ -23,6 +23,7 @@ export function TransactionSearchAndFilters({
   const [filters, setFilters] = useTransactionFilters()
   const t = useTranslations("Filters")
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFilterChange = (name: keyof TransactionFilters, value: any) => {
     setFilters((prev) => ({
       ...prev,

@@ -18,6 +18,7 @@ import defaultTemplates, { InvoiceTemplate } from "../default-templates"
 import { InvoiceAppData } from "../page"
 import { InvoiceFormData, InvoicePage } from "./invoice-page"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function invoiceFormReducer(state: InvoiceFormData, action: any): InvoiceFormData {
   switch (action.type) {
     case "SET_FORM":
@@ -82,7 +83,7 @@ export function InvoiceGenerator({
 }) {
   const templates: InvoiceTemplate[] = useMemo(
     () => [...defaultTemplates(user, settings), ...(appData?.templates || [])],
-    [appData]
+    [appData, user, settings]
   )
 
   const [selectedTemplate, setSelectedTemplate] = useState<string>(templates[0].name)

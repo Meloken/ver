@@ -1,5 +1,6 @@
 import DashboardDropZoneWidget from "@/components/dashboard/drop-zone-widget"
 import { StatsWidget } from "@/components/dashboard/stats-widget"
+import { ChartsWidget } from "@/components/dashboard/charts-widget"
 import DashboardUnsortedWidget from "@/components/dashboard/unsorted-widget"
 import { WelcomeWidget } from "@/components/dashboard/welcome-widget"
 import { Separator } from "@/components/ui/separator"
@@ -7,7 +8,7 @@ import { getCurrentUser } from "@/lib/auth"
 import config from "@/lib/config"
 import { getUnsortedFiles } from "@/models/files"
 import { getSettings } from "@/models/settings"
-import { TransactionFilters } from "@/models/transactions"
+import { TransactionFilters, getTransactions } from "@/models/transactions"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -18,9 +19,10 @@ export const metadata: Metadata = {
 export default async function Dashboard({ searchParams }: { searchParams: Promise<TransactionFilters> }) {
   const filters = await searchParams
   const user = await getCurrentUser()
-  const [unsortedFiles, settings] = await Promise.all([
+  const [unsortedFiles, settings, transactionsData] = await Promise.all([
     getUnsortedFiles(user.id),
     getSettings(user.id),
+    getTransactions(user.id, filters),
   ])
 
   return (
@@ -36,6 +38,10 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       <Separator />
 
       <StatsWidget filters={filters} />
+      
+      {/* Gelir ve Gider Grafikleri */}
+      <ChartsWidget transactions={transactionsData.transactions} />
     </div>
   )
 }
+

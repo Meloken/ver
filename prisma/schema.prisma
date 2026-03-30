@@ -12,8 +12,8 @@ datasource db {
 }
 
 model User {
-  id                  String        @id @default(uuid()) 
-  email               String        @unique
+  id                  String         @id @default(uuid())
+  email               String         @unique
   name                String
   avatar              String?
   settings            Setting[]
@@ -23,36 +23,40 @@ model User {
   files               File[]
   currencies          Currency[]
   transactions        Transaction[]
-  createdAt           DateTime      @default(now()) @map("created_at")
-  updatedAt           DateTime      @updatedAt @map("updated_at")
-  stripeCustomerId    String?       @map("stripe_customer_id")
-  membershipPlan      String?       @map("membership_plan")
-  membershipExpiresAt DateTime?     @map("membership_expires_at")
-  emailVerified       Boolean       @default(false) @map("is_email_verified")
-  storageUsed         Int           @default(0) @map("storage_used")
-  storageLimit        Int           @default(-1) @map("storage_limit")
-  aiBalance           Int           @default(0) @map("ai_balance")
-  businessName        String?       @map("business_name")
-  businessAddress     String?       @map("business_address")
-  businessBankDetails String?       @map("business_bank_details")
-  businessLogo        String?       @map("business_logo")
+  createdAt           DateTime       @default(now()) @map("created_at")
+  updatedAt           DateTime       @updatedAt @map("updated_at")
+  stripeCustomerId    String?        @map("stripe_customer_id")
+  membershipPlan      String?        @map("membership_plan")
+  membershipExpiresAt DateTime?      @map("membership_expires_at")
+  emailVerified       Boolean        @default(false) @map("is_email_verified")
+  storageUsed         Int            @default(0) @map("storage_used")
+  storageLimit        Int            @default(-1) @map("storage_limit")
+  aiBalance           Int            @default(0) @map("ai_balance")
+  businessName        String?        @map("business_name")
+  businessAddress     String?        @map("business_address")
+  businessBankDetails String?        @map("business_bank_details")
+  businessLogo        String?        @map("business_logo")
   accounts            Account[]
   sessions            Session[]
   appData             AppData[]
   progress            Progress[]
+  subscriptions       Subscription[]
+  budgets             Budget[]
+  customers           Customer[]
+  invoices            Invoice[]
 
   @@map("users")
 }
 
 model Session {
-  id        String   @id @default(uuid()) 
+  id        String   @id @default(uuid())
   token     String
   expiresAt DateTime @map("expires_at")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   ipAddress String?  @map("ip_address")
   userAgent String?  @map("user_agent")
-  userId    String   @map("user_id") 
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
@@ -63,7 +67,7 @@ model Account {
   id                    String    @id
   accountId             String    @map("account_id")
   providerId            String    @map("provider_id")
-  userId                String    @map("user_id") 
+  userId                String    @map("user_id")
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?   @map("access_token")
   refreshToken          String?   @map("refresh_token")
@@ -79,7 +83,7 @@ model Account {
 }
 
 model Verification {
-  id         String   @id @default(uuid()) 
+  id         String   @id @default(uuid())
   identifier String
   value      String
   expiresAt  DateTime @map("expires_at")
@@ -90,8 +94,8 @@ model Verification {
 }
 
 model Setting {
-  id          String  @id @default(uuid()) 
-  userId      String  @map("user_id") 
+  id          String  @id @default(uuid())
+  userId      String  @map("user_id")
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   code        String
   name        String
@@ -103,8 +107,8 @@ model Setting {
 }
 
 model Category {
-  id           String        @id @default(uuid()) 
-  userId       String        @map("user_id") 
+  id           String        @id @default(uuid())
+  userId       String        @map("user_id")
   user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   code         String
   name         String
@@ -118,8 +122,8 @@ model Category {
 }
 
 model Project {
-  id           String        @id @default(uuid()) 
-  userId       String        @map("user_id") 
+  id           String        @id @default(uuid())
+  userId       String        @map("user_id")
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   code         String
   name         String
@@ -133,8 +137,8 @@ model Project {
 }
 
 model Field {
-  id                  String   @id @default(uuid()) 
-  userId              String   @map("user_id") 
+  id                  String   @id @default(uuid())
+  userId              String   @map("user_id")
   user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   code                String
   name                String
@@ -152,8 +156,8 @@ model Field {
 }
 
 model File {
-  id                String   @id @default(uuid()) 
-  userId            String   @map("user_id") 
+  id                String   @id @default(uuid())
+  userId            String   @map("user_id")
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   filename          String
   path              String
@@ -168,8 +172,8 @@ model File {
 }
 
 model Transaction {
-  id                    String    @id @default(uuid()) 
-  userId                String    @map("user_id") 
+  id                    String    @id @default(uuid())
+  userId                String    @map("user_id")
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   name                  String?
   description           String?
@@ -203,8 +207,8 @@ model Transaction {
 }
 
 model Currency {
-  id     String  @id @default(uuid()) 
-  userId String? @map("user_id") 
+  id     String  @id @default(uuid())
+  userId String? @map("user_id")
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   code   String
   name   String
@@ -214,9 +218,9 @@ model Currency {
 }
 
 model AppData {
-  id     String @id @default(uuid()) 
+  id     String @id @default(uuid())
   app    String
-  userId String @map("user_id") 
+  userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   data   Json
 
@@ -225,8 +229,8 @@ model AppData {
 }
 
 model Progress {
-  id        String   @id @default(uuid()) 
-  userId    String   @map("user_id") 
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   type      String
   data      Json?
@@ -236,4 +240,79 @@ model Progress {
 
   @@index([userId])
   @@map("progress")
+}
+
+model Subscription {
+  id           String    @id @default(uuid())
+  userId       String    @map("user_id")
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  amount       Float
+  currencyCode String    @map("currency_code")
+  billingCycle String    @default("monthly") // monthly, yearly, weekly
+  categoryCode String?   @map("category_code") // Bağlı olduğu kategori (Opsiyonel)
+  startDate    DateTime  @default(now()) @map("start_date")
+  nextBilling  DateTime? @map("next_billing")
+  status       String    @default("active") // active, cancelled
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("subscriptions")
+}
+
+model Budget {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryCode String   @map("category_code")
+  amount       Float
+  period       String   @default("monthly") // monthly, yearly
+  startDate    DateTime @default(now()) @map("start_date")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, categoryCode, period])
+  @@map("budgets")
+}
+
+model Customer {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  email     String?
+  taxId     String?   @map("tax_id")
+  address   String?
+  phone     String?
+  invoices  Invoice[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("customers")
+}
+
+model Invoice {
+  id            String    @id @default(uuid())
+  userId        String    @map("user_id")
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  customerId    String    @map("customer_id")
+  customer      Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  invoiceNumber String    @map("invoice_number")
+  issueDate     DateTime  @default(now()) @map("issue_date")
+  dueDate       DateTime? @map("due_date")
+  status        String    @default("draft") // draft, sent, paid, overdue
+  total         Float     @default(0)
+  currencyCode  String    @default("USD") @map("currency_code")
+  items         Json      @default("[]") // Array of { description, quantity, price, total }
+  notes         String?
+  fileUrl       String?   @map("file_url")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@unique([userId, invoiceNumber])
+  @@index([userId])
+  @@index([customerId])
+  @@map("invoices")
 }

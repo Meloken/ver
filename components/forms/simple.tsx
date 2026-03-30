@@ -13,6 +13,7 @@ import { SelectProps } from "@radix-ui/react-select"
 import { format } from "date-fns"
 import { CalendarIcon, Upload } from "lucide-react"
 import { InputHTMLAttributes, TextareaHTMLAttributes, useEffect, useRef, useState } from "react"
+import { useTranslations } from "next-intl"
 
 type FormInputProps = InputHTMLAttributes<HTMLInputElement> & {
   title?: string
@@ -268,7 +269,7 @@ export const FormAvatar = ({
             <img src={preview} alt="Avatar preview" className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full bg-muted flex items-center justify-center">
-              <span className="text-muted-foreground">No image</span>
+              <span className="text-muted-foreground">{useTranslations("CurrencyConverter")("noImage")}</span>
             </div>
           )}
         </div>

@@ -4,6 +4,7 @@ import { format, startOfDay } from "date-fns"
 import { Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
+import { useTranslations } from "next-intl"
 
 async function getCurrencyRate(currencyCodeFrom: string, currencyCodeTo: string, date: Date): Promise<number> {
   const formattedDate = format(date, "yyyy-MM-dd")
@@ -38,6 +39,7 @@ export const CurrencyConverterTool = ({
   const [convertedTotal, setConvertedTotal] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const t = useTranslations("CurrencyConverter")
 
   const fetchAndUpdateRates = async () => {
     try {
@@ -79,7 +81,7 @@ export const CurrencyConverterTool = ({
       {isLoading ? (
         <div className="flex flex-row items-center gap-2 text-sm text-muted-foreground">
           <Loader2 className="w-4 h-4 animate-spin" />
-          <div className="font-semibold">Loading exchange rates...</div>
+          <div className="font-semibold">{t("loadingRates")}</div>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -100,13 +102,13 @@ export const CurrencyConverterTool = ({
             />
           </div>
           {!error && (
-            <div className="text-xs text-muted-foreground">The exchange rate will be added to the transaction</div>
+            <div className="text-xs text-muted-foreground">{t("rateAdded")}</div>
           )}
           {error && (
             <div className="flex flex-row gap-2">
               <FormError className="mt-0 text-sm">{error}</FormError>
               <Button variant="outline" size="sm" className="text-xs" onClick={handleRestart}>
-                Retry
+                {t("retry")}
               </Button>
             </div>
           )}

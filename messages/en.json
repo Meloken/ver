@@ -211,5 +211,42 @@
     "fieldsTitle": "Fields, currencies and categories",
     "fieldsDescription": "This will reset all fields, currencies and categories to their default values",
     "resetFields": "Reset fields, currencies and categories"
+  },
+  "CreateTransaction": {
+    "name": "Name",
+    "merchant": "Merchant",
+    "description": "Description",
+    "total": "Total",
+    "currency": "Currency",
+    "selectCurrency": "Select Currency",
+    "type": "Type",
+    "convertedTo": "Converted to {currency}",
+    "issuedAt": "Issued At",
+    "category": "Category",
+    "selectCategory": "Select Category",
+    "project": "Project",
+    "selectProject": "Select Project",
+    "note": "Note",
+    "creating": "Creating...",
+    "createAndAddFiles": "Create and Add Files"
+  },
+  "TransactionFiles": {
+    "addMoreFiles": "Add more files to this invoice",
+    "dropOnPage": "(or just drop them on this page)"
+  },
+  "ScreenDrop": {
+    "dropToTransaction": "Drop Files to Add to Transaction",
+    "dropToUpload": "Drop Files to Upload",
+    "dropAnywhere": "Drop anywhere on the screen",
+    "addingToTransaction": "Adding files to transaction...",
+    "uploading": "Uploading...",
+    "uploadError": "Upload Error",
+    "somethingWrong": "Something went wrong..."
+  },
+  "CurrencyConverter": {
+    "loadingRates": "Loading exchange rates...",
+    "rateAdded": "The exchange rate will be added to the transaction",
+    "retry": "Retry",
+    "noImage": "No image"
   }
 }

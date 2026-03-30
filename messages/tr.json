@@ -211,5 +211,42 @@
     "fieldsTitle": "Alanlar, para birimleri ve kategoriler",
     "fieldsDescription": "Bu, tüm alanları, para birimlerini ve kategorileri varsayılan değerlerine sıfırlayacaktır",
     "resetFields": "Alanları, para birimlerini ve kategorileri sıfırla"
+  },
+  "CreateTransaction": {
+    "name": "Ad",
+    "merchant": "Satıcı",
+    "description": "Açıklama",
+    "total": "Toplam",
+    "currency": "Para Birimi",
+    "selectCurrency": "Para Birimi Seçin",
+    "type": "Tür",
+    "convertedTo": "{currency} olarak dönüştürülmüş",
+    "issuedAt": "Düzenlenme Tarihi",
+    "category": "Kategori",
+    "selectCategory": "Kategori Seçin",
+    "project": "Proje",
+    "selectProject": "Proje Seçin",
+    "note": "Not",
+    "creating": "Oluşturuluyor...",
+    "createAndAddFiles": "Oluştur ve Dosya Ekle"
+  },
+  "TransactionFiles": {
+    "addMoreFiles": "Bu faturaya daha fazla dosya ekleyin",
+    "dropOnPage": "(veya bu sayfaya bırakın)"
+  },
+  "ScreenDrop": {
+    "dropToTransaction": "İşleme Eklemek İçin Dosyaları Bırakın",
+    "dropToUpload": "Yüklemek İçin Dosyaları Bırakın",
+    "dropAnywhere": "Ekranın herhangi bir yerine bırakın",
+    "addingToTransaction": "İşleme dosyalar ekleniyor...",
+    "uploading": "Yükleniyor...",
+    "uploadError": "Yükleme Hatası",
+    "somethingWrong": "Bir şeyler ters gitti..."
+  },
+  "CurrencyConverter": {
+    "loadingRates": "Döviz kurları yükleniyor...",
+    "rateAdded": "Döviz kuru işleme eklenecek",
+    "retry": "Tekrar Dene",
+    "noImage": "Görsel yok"
   }
 }

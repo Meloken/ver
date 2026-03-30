@@ -8,9 +8,11 @@ import config from "@/lib/config"
 import { File, Transaction } from "@/prisma/client"
 import { Loader2, Upload, X } from "lucide-react"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 export default function TransactionFiles({ transaction, files }: { transaction: Transaction; files: File[] }) {
   const [isUploading, setIsUploading] = useState(false)
+  const t = useTranslations("TransactionFiles")
 
   const handleDeleteFile = async (fileId: string) => {
     await deleteTransactionFileAction(transaction.id, fileId)
@@ -62,8 +64,8 @@ export default function TransactionFiles({ transaction, files }: { transaction: 
           ) : (
             <>
               <Upload className="w-8 h-8 text-gray-400" />
-              <p className="text-sm text-gray-500">Add more files to this invoice</p>
-              <p className="text-xs text-gray-500">(or just drop them on this page)</p>
+              <p className="text-sm text-gray-500">{t("addMoreFiles")}</p>
+              <p className="text-xs text-gray-500">{t("dropOnPage")}</p>
             </>
           )}
           <input

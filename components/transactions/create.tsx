@@ -14,6 +14,7 @@ import { Import, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useActionState, useEffect, useState } from "react"
+import { useTranslations } from "next-intl"
 
 export default function TransactionCreateForm({
   categories,
@@ -28,6 +29,7 @@ export default function TransactionCreateForm({
 }) {
   const router = useRouter()
   const [createState, createAction, isCreating] = useActionState(createTransactionAction, null)
+  const t = useTranslations("CreateTransaction")
   const [formData, setFormData] = useState({
     name: "",
     merchant: "",
@@ -51,33 +53,33 @@ export default function TransactionCreateForm({
 
   return (
     <form action={createAction} className="space-y-4">
-      <FormInput title="Name" name="name" defaultValue={formData.name} />
+      <FormInput title={t("name")} name="name" defaultValue={formData.name} />
 
-      <FormInput title="Merchant" name="merchant" defaultValue={formData.merchant} />
+      <FormInput title={t("merchant")} name="merchant" defaultValue={formData.merchant} />
 
-      <FormInput title="Description" name="description" defaultValue={formData.description} />
+      <FormInput title={t("description")} name="description" defaultValue={formData.description} />
 
       <div className="flex flex-row gap-4">
-        <FormInput title="Total" type="number" step="0.01" name="total" defaultValue={formData.total.toFixed(2)} />
+        <FormInput title={t("total")} type="number" step="0.01" name="total" defaultValue={formData.total.toFixed(2)} />
 
         <FormSelectCurrency
-          title="Currency"
+          title={t("currency")}
           name="currencyCode"
           currencies={currencies}
-          placeholder="Select Currency"
+          placeholder={t("selectCurrency")}
           value={formData.currencyCode}
           onValueChange={(value) => {
             setFormData({ ...formData, currencyCode: value })
           }}
         />
 
-        <FormSelectType title="Type" name="type" defaultValue={formData.type} />
+        <FormSelectType title={t("type")} name="type" defaultValue={formData.type} />
       </div>
 
       {formData.currencyCode !== settings.default_currency ? (
         <div className="flex flex-row gap-4">
           <FormInput
-            title={`Converted to ${settings.default_currency}`}
+            title={t("convertedTo", { currency: settings.default_currency })}
             type="number"
             step="0.01"
             name="convertedTotal"
@@ -89,28 +91,28 @@ export default function TransactionCreateForm({
       )}
 
       <div className="flex flex-row flex-grow gap-4">
-        <FormInput title="Issued At" type="date" name="issuedAt" defaultValue={formData.issuedAt} />
+        <FormInput title={t("issuedAt")} type="date" name="issuedAt" defaultValue={formData.issuedAt} />
       </div>
 
       <div className="flex flex-row gap-4">
         <FormSelectCategory
-          title="Category"
+          title={t("category")}
           categories={categories}
           name="categoryCode"
           defaultValue={formData.categoryCode}
-          placeholder="Select Category"
+          placeholder={t("selectCategory")}
         />
 
         <FormSelectProject
-          title="Project"
+          title={t("project")}
           projects={projects}
           name="projectCode"
           defaultValue={formData.projectCode}
-          placeholder="Select Project"
+          placeholder={t("selectProject")}
         />
       </div>
 
-      <FormTextarea title="Note" name="note" defaultValue={formData.note} />
+      <FormTextarea title={t("note")} name="note" defaultValue={formData.note} />
 
       <div className="flex justify-between space-x-4 pt-6">
         <Button type="button" variant="outline" className="aspect-square">
@@ -123,10 +125,10 @@ export default function TransactionCreateForm({
           {isCreating ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Creating...
+              {t("creating")}
             </>
           ) : (
-            "Create and Add Files"
+            t("createAndAddFiles")
           )}
         </Button>
       </div>

@@ -6,6 +6,7 @@ import { uploadTransactionFilesAction } from "@/app/(app)/transactions/actions"
 import { AlertCircle, CloudUpload, Loader2 } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { useTranslations } from "next-intl"
 
 export default function ScreenDropArea({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -15,6 +16,7 @@ export default function ScreenDropArea({ children }: { children: React.ReactNode
   const [uploadError, setUploadError] = useState("")
   const dragCounter = useRef(0)
   const { transactionId } = useParams()
+  const t = useTranslations("ScreenDrop")
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -88,11 +90,11 @@ export default function ScreenDropArea({ children }: { children: React.ReactNode
               router.push("/unsorted")
             }
           } else {
-            setUploadError(result.error ? result.error : "Something went wrong...")
+            setUploadError(result.error ? result.error : t("somethingWrong"))
           }
         } catch (error) {
           console.error("Upload error:", error)
-          setUploadError(error instanceof Error ? error.message : "Something went wrong...")
+          setUploadError(error instanceof Error ? error.message : t("somethingWrong"))
         } finally {
           setIsUploading(false)
         }
@@ -131,9 +133,9 @@ export default function ScreenDropArea({ children }: { children: React.ReactNode
           <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl text-center">
             <CloudUpload className="h-16 w-16 mx-auto mb-4 text-primary" />
             <h3 className="text-xl font-semibold mb-2">
-              {transactionId ? "Drop Files to Add to Transaction" : "Drop Files to Upload"}
+              {transactionId ? t("dropToTransaction") : t("dropToUpload")}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">Drop anywhere on the screen</p>
+            <p className="text-gray-600 dark:text-gray-400">{t("dropAnywhere")}</p>
           </div>
         </div>
       )}
@@ -143,7 +145,7 @@ export default function ScreenDropArea({ children }: { children: React.ReactNode
           <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl text-center">
             <Loader2 className="h-16 w-16 mx-auto mb-4 text-primary animate-spin" />
             <h3 className="text-xl font-semibold mb-2">
-              {transactionId ? "Adding files to transaction..." : "Uploading..."}
+              {transactionId ? t("addingToTransaction") : t("uploading")}
             </h3>
           </div>
         </div>
@@ -153,7 +155,7 @@ export default function ScreenDropArea({ children }: { children: React.ReactNode
         <div className="fixed inset-0 bg-opacity-20 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl text-center">
             <AlertCircle className="h-16 w-16 mx-auto mb-4 text-red-500" />
-            <h3 className="text-xl font-semibold mb-2">Upload Error</h3>
+            <h3 className="text-xl font-semibold mb-2">{t("uploadError")}</h3>
             <p className="text-gray-600 dark:text-gray-400">{uploadError}</p>
           </div>
         </div>

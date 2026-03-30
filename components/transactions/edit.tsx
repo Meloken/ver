@@ -16,6 +16,7 @@ import { format } from "date-fns"
 import { Loader2, Save, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { startTransition, useActionState, useEffect, useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 
 export default function TransactionEditForm({
   transaction,
@@ -35,6 +36,8 @@ export default function TransactionEditForm({
   const router = useRouter()
   const [deleteState, deleteAction, isDeleting] = useActionState(deleteTransactionAction, null)
   const [saveState, saveAction, isSaving] = useActionState(saveTransactionAction, null)
+  const t = useTranslations("Transactions")
+  const tCommon = useTranslations("Common")
 
   const extraFields = fields.filter((field) => field.isExtra)
   const [formData, setFormData] = useState({
@@ -71,7 +74,7 @@ export default function TransactionEditForm({
   }, [fields])
 
   const handleDelete = async () => {
-    if (confirm("Are you sure? This will delete the transaction with all the files permanently")) {
+    if (confirm(t("confirmDelete"))) {
       startTransition(async () => {
         await deleteAction(transaction.id)
         router.back()
@@ -163,7 +166,7 @@ export default function TransactionEditForm({
             )}
             {(!formData.convertedCurrencyCode || formData.convertedCurrencyCode !== settings.default_currency) && (
               <FormSelectCurrency
-                title="Convert to"
+                title={tCommon("convertTo")}
                 name="convertedCurrencyCode"
                 defaultValue={formData.convertedCurrencyCode || settings.default_currency}
                 currencies={currencies}
@@ -226,7 +229,7 @@ export default function TransactionEditForm({
         <Button type="button" onClick={handleDelete} variant="destructive" disabled={isDeleting}>
           <>
             <Trash2 className="h-4 w-4" />
-            {isDeleting ? "⏳ Deleting..." : "Delete "}
+            {isDeleting ? t("deleting") : t("deleteTransaction")}
           </>
         </Button>
 
@@ -234,12 +237,12 @@ export default function TransactionEditForm({
           {isSaving ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Saving...
+              {t("saving")}
             </>
           ) : (
             <>
               <Save className="h-4 w-4" />
-              Save Transaction
+              {t("saveTransaction")}
             </>
           )}
         </Button>

@@ -2,8 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import { Save, Swords } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function AnalyzeAllButton() {
+  const tCommon = useTranslations("Common")
+  const tUnsorted = useTranslations("Unsorted")
   const handleAnalyzeAll = () => {
     if (typeof document !== "undefined") {
       document.querySelectorAll("button[data-analyze-button]").forEach((button) => {
@@ -24,11 +27,11 @@ export function AnalyzeAllButton() {
     <div className="flex flex-row flex-wrap gap-2 justify-end">
       <Button variant="outline" className="flex items-center gap-2" onClick={handleSaveAll}>
         <Save className="h-4 w-4" />
-        Save all
+        {tCommon("save")} 
       </Button>
       <Button className="flex items-center gap-2" onClick={handleAnalyzeAll}>
         <Swords className="h-4 w-4" />
-        Analyze all
+        {tUnsorted("analyzeAll")}
       </Button>
     </div>
   )

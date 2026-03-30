@@ -18,15 +18,30 @@
     "addManually": "Manuel Ekle",
     "analyzeInvoice": "Yeni Fatura Analiz Et",
     "emptyState": "Henüz hiç işleminiz yok. Hadi ilk işlemi oluşturarak başlayalım!",
-    "newTransaction": "Yeni İşlem"
+    "newTransaction": "Yeni İşlem",
+    "saveTransaction": "İşlemi Kaydet",
+    "deleteTransaction": "Sil",
+    "deleting": "⏳ Siliniyor...",
+    "saving": "Kaydediliyor...",
+    "confirmDelete": "Emin misiniz? Bu işlem tüm dosyalarıyla birlikte kalıcı olarak silinecek",
+    "recognizedText": "Tanınan Metin",
+    "incompleteFields": "Bazı alanlar eksik:",
+    "fieldsSettingsLink": "Alan ayarları",
+    "decideFields": "Sizin için hangi alanların gerekli olduğunu belirleyebilirsiniz:"
   },
   "Dashboard": {
     "title": "Gösterge Paneli",
     "uploading": "Yükleniyor...",
     "dropFiles": "Fotoğraf çekin veya dosyalarınızı buraya sürükleyin",
     "dropDescription": "Taramam için fişleri, faturaları ve diğer belgeleri yükleyin",
-    "unsortedFiles": "{count} ayrılmamış dosya",
-    "noUnsortedFiles": "Ayrılmamış dosya yok"
+    "unsortedFiles": "ayrılmamış dosya",
+    "noUnsortedFiles": "Ayrılmamış dosya yok",
+    "overview": "Genel Bakış",
+    "totalIncome": "Toplam Gelir",
+    "totalExpenses": "Toplam Gider",
+    "netProfit": "Net Kâr",
+    "processedTransactions": "İşlenen İşlemler",
+    "projects": "Projeler"
   },
   "Welcome": {
     "greeting": "Merhaba, ben TaxHacker 👋",
@@ -59,6 +74,35 @@
     "apiKeyDescription": "Analiz formunu kullanmak için lütfen ayarlardan LLM sağlayıcı API anahtarınızı ayarlayın.",
     "goToSettings": "Ayarlara Git",
     "analyzeAll": "Hepsini Analiz Et"
+  },
+  "AnalyzeForm": {
+    "analyzeWithAI": "Yapay Zeka ile Analiz Et",
+    "analyzing": "Analiz ediliyor...",
+    "saveAsTransaction": "İşlem Olarak Kaydet",
+    "saving": "Kaydediliyor...",
+    "delete": "Sil",
+    "deleting": "⏳ Siliniyor...",
+    "fileSplitUp": "Bu dosya bölünmüş",
+    "detectedItems": "Algılanan öğeler",
+    "selectCategory": "Kategori Seçin",
+    "selectProject": "Proje Seçin"
+  },
+  "Export": {
+    "title": "{count} İşlemi Dışa Aktar",
+    "description": "Seçilen işlemleri ve dosyaları CSV veya ZIP arşivi olarak dışa aktarın",
+    "searchQuery": "Arama sorgusu:",
+    "timeRange": "Zaman aralığı:",
+    "category": "Kategori",
+    "project": "Proje",
+    "allCategories": "Tüm Kategoriler",
+    "allProjects": "Tüm Projeler",
+    "fieldsInCsv": "CSV'ye dahil edilecek alanlar",
+    "includeFiles": "Ekli dosyaları dahil et",
+    "createZip": "(zip arşivi oluştur)",
+    "exporting": "Dışa aktarılıyor...",
+    "archiving": "{current}/{total} dosya arşivleniyor",
+    "downloading": "Arşiv oluşturuldu. İndiriliyor...",
+    "exportButton": "İşlemleri Dışa Aktar"
   },
   "Settings": {
     "title": "Ayarlar",
@@ -93,6 +137,7 @@
     "next": "İleri",
     "close": "Kapat",
     "yes": "Evet",
-    "no": "Hayır"
+    "no": "Hayır",
+    "convertTo": "Dönüştür"
   }
 }

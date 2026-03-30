@@ -18,15 +18,30 @@
     "addManually": "Add Manually",
     "analyzeInvoice": "Analyze New Invoice",
     "emptyState": "You don't seem to have any transactions yet. Let's start and create the first one!",
-    "newTransaction": "New Transaction"
+    "newTransaction": "New Transaction",
+    "saveTransaction": "Save Transaction",
+    "deleteTransaction": "Delete",
+    "deleting": "⏳ Deleting...",
+    "saving": "Saving...",
+    "confirmDelete": "Are you sure? This will delete the transaction with all the files permanently",
+    "recognizedText": "Recognized Text",
+    "incompleteFields": "Some fields are incomplete:",
+    "fieldsSettingsLink": "Fields settings",
+    "decideFields": "You can decide which fields are required for you in"
   },
   "Dashboard": {
     "title": "Dashboard",
     "uploading": "Uploading...",
     "dropFiles": "Take a photo or drop your files here",
     "dropDescription": "upload receipts, invoices and any other documents for me to scan",
-    "unsortedFiles": "{count} unsorted files",
-    "noUnsortedFiles": "No unsorted files"
+    "unsortedFiles": "unsorted files",
+    "noUnsortedFiles": "No unsorted files",
+    "overview": "Overview",
+    "totalIncome": "Total Income",
+    "totalExpenses": "Total Expenses",
+    "netProfit": "Net Profit",
+    "processedTransactions": "Processed Transactions",
+    "projects": "Projects"
   },
   "Welcome": {
     "greeting": "Hey, I'm TaxHacker 👋",
@@ -59,6 +74,35 @@
     "apiKeyDescription": "Please set your LLM provider API key in the settings to use the analyze form.",
     "goToSettings": "Go to Settings",
     "analyzeAll": "Analyze All"
+  },
+  "AnalyzeForm": {
+    "analyzeWithAI": "Analyze with AI",
+    "analyzing": "Analyzing...",
+    "saveAsTransaction": "Save as Transaction",
+    "saving": "Saving...",
+    "delete": "Delete",
+    "deleting": "⏳ Deleting...",
+    "fileSplitUp": "This file has been split up",
+    "detectedItems": "Detected items",
+    "selectCategory": "Select Category",
+    "selectProject": "Select Project"
+  },
+  "Export": {
+    "title": "Export {count} Transactions",
+    "description": "Export selected transactions and files as a CSV file or a ZIP archive",
+    "searchQuery": "Search query:",
+    "timeRange": "Time range:",
+    "category": "Category",
+    "project": "Project",
+    "allCategories": "All Categories",
+    "allProjects": "All Projects",
+    "fieldsInCsv": "Fields to be included in CSV",
+    "includeFiles": "Include attached files",
+    "createZip": "(create a zip archive)",
+    "exporting": "Exporting...",
+    "archiving": "Archiving {current}/{total} files",
+    "downloading": "Archive is created. Downloading...",
+    "exportButton": "Export Transactions"
   },
   "Settings": {
     "title": "Settings",
@@ -93,6 +137,7 @@
     "next": "Next",
     "close": "Close",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "convertTo": "Convert to"
   }
 }

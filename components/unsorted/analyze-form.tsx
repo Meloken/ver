@@ -17,6 +17,7 @@ import { Category, Currency, Field, File, Project } from "@/prisma/client"
 import { format } from "date-fns"
 import { ArrowDownToLine, Brain, Loader2, Trash2 } from "lucide-react"
 import { startTransition, useActionState, useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 
 export default function AnalyzeForm({
   file,
@@ -40,6 +41,7 @@ export default function AnalyzeForm({
   const [deleteState, deleteAction, isDeleting] = useActionState(deleteUnsortedFileAction, null)
   const [isSaving, setIsSaving] = useState(false)
   const [saveError, setSaveError] = useState("")
+  const t = useTranslations("AnalyzeForm")
 
   const fieldMap = useMemo(() => {
     return fields.reduce(
@@ -118,7 +120,7 @@ export default function AnalyzeForm({
     setIsAnalyzing(true)
     setAnalyzeError("")
     try {
-      setAnalyzeStep("Analyzing...")
+      setAnalyzeStep(t("analyzing"))
       const results = await analyzeFileAction(file, settings, fields, categories, projects)
 
       console.log("Analysis results:", results)
@@ -146,7 +148,7 @@ export default function AnalyzeForm({
     <>
       {file.isSplitted ? (
         <div className="flex justify-end">
-          <Badge variant="outline">This file has been split up</Badge>
+          <Badge variant="outline">{t("fileSplitUp")}</Badge>
         </div>
       ) : (
         <Button className="w-full mb-6 py-6 text-lg" onClick={startAnalyze} disabled={isAnalyzing} data-analyze-button>
@@ -158,7 +160,7 @@ export default function AnalyzeForm({
           ) : (
             <>
               <Brain className="mr-1 h-4 w-4" />
-              <span>Analyze with AI</span>
+              <span>{t("analyzeWithAI")}</span>
             </>
           )}
         </Button>
@@ -303,7 +305,7 @@ export default function AnalyzeForm({
         ))}
 
         {formData.items && formData.items.length > 0 && (
-          <ToolWindow title="Detected items">
+          <ToolWindow title={t("detectedItems")}>
             <ItemsDetectTool file={file} data={formData} />
           </ToolWindow>
         )}
@@ -327,19 +329,19 @@ export default function AnalyzeForm({
             disabled={isDeleting}
           >
             <Trash2 className="h-4 w-4" />
-            {isDeleting ? "⏳ Deleting..." : "Delete"}
+            {isDeleting ? t("deleting") : t("delete")}
           </Button>
 
           <Button type="submit" disabled={isSaving} data-save-button>
             {isSaving ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving...
+                {t("saving")}
               </>
             ) : (
               <>
                 <ArrowDownToLine className="h-4 w-4" />
-                Save as Transaction
+                {t("saveAsTransaction")}
               </>
             )}
           </Button>

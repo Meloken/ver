@@ -20,6 +20,7 @@ import { useTransactionFilters } from "@/hooks/use-transaction-filters"
 import { Category, Field, Project } from "@/prisma/client"
 import { formatDate } from "date-fns"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 const deselectedFields = ["files", "text"]
 
@@ -41,6 +42,7 @@ export function ExportTransactionsDialog({
     fields.map((field) => (deselectedFields.includes(field.code) ? "" : field.code))
   )
   const [includeAttachments, setIncludeAttachments] = useState(true)
+  const t = useTranslations("Export")
   const { isLoading, startProgress, progress } = useProgress({
     onError: (error) => {
       console.error("Export progress error:", error)
@@ -81,20 +83,20 @@ export function ExportTransactionsDialog({
       </DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Export {total} Transactions</DialogTitle>
-          <DialogDescription>Export selected transactions and files as a CSV file or a ZIP archive</DialogDescription>
+          <DialogTitle className="text-2xl font-bold">{t("title").replace("{count}", String(total))}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
             {exportFilters.search && (
               <div className="flex flex-row items-center gap-2">
-                <span className="text-sm font-medium">Search query:</span>
+                <span className="text-sm font-medium">{t("searchQuery")}</span>
                 <span className="text-sm">{exportFilters.search}</span>
               </div>
             )}
 
             <div className="flex flex-row items-center gap-2">
-              <span className="text-sm font-medium">Time range:</span>
+              <span className="text-sm font-medium">{t("timeRange")}</span>
 
               <DateRangePicker
                 defaultDate={{
@@ -114,30 +116,30 @@ export function ExportTransactionsDialog({
 
             <div className="flex flex-row items-center gap-2">
               <FormSelectCategory
-                title="Category"
+                title={t("category")}
                 name="category"
                 categories={categories}
                 value={exportFilters.categoryCode}
                 onValueChange={(value) => setExportFilters({ ...exportFilters, categoryCode: value })}
-                placeholder="All Categories"
-                emptyValue="All Categories"
+                placeholder={t("allCategories")}
+                emptyValue={t("allCategories")}
               />
 
               <FormSelectProject
-                title="Project"
+                title={t("project")}
                 name="project"
                 projects={projects}
                 value={exportFilters.projectCode}
                 onValueChange={(value) => setExportFilters({ ...exportFilters, projectCode: value })}
-                placeholder="All Projects"
-                emptyValue="All Projects"
+                placeholder={t("allProjects")}
+                emptyValue={t("allProjects")}
               />
             </div>
           </div>
 
           <Separator />
 
-          <div className="text-lg font-bold">Fields to be included in CSV</div>
+          <div className="text-lg font-bold">{t("fieldsInCsv")}</div>
 
           <div className="grid grid-cols-2 gap-2">
             {fields.map((field) => (
@@ -169,8 +171,8 @@ export function ExportTransactionsDialog({
                 onChange={(e) => setIncludeAttachments(e.target.checked)}
               />
               <span className="flex flex-col">
-                <span className="font-medium">Include attached files</span>
-                <span className="text-sm">(create a zip archive)</span>
+                <span className="font-medium">{t("includeFiles")}</span>
+                <span className="text-sm">{t("createZip")}</span>
               </span>
             </label>
           </div>
@@ -179,11 +181,11 @@ export function ExportTransactionsDialog({
           <Button type="button" onClick={handleSubmit} disabled={isLoading || isDownloading}>
             {isLoading
               ? progress?.current
-                ? `Archiving ${progress.current}/${progress.total} files`
-                : "Exporting..."
+                ? t("archiving").replace("{current}", String(progress.current)).replace("{total}", String(progress.total))
+                : t("exporting")
               : isDownloading
-                ? "Archive is created. Downloading..."
-                : "Export Transactions"}
+                ? t("downloading")
+                : t("exportButton")}
           </Button>
         </DialogFooter>
       </DialogContent>

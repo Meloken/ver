@@ -13,6 +13,8 @@ import { getSettings } from "@/models/settings"
 import { getTransactionById } from "@/models/transactions"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { getTranslations } from "next-intl/server"
+import { cookies } from "next/headers"
 
 export default async function TransactionPage({ params }: { params: Promise<{ transactionId: string }> }) {
   const { transactionId } = await params
@@ -29,6 +31,9 @@ export default async function TransactionPage({ params }: { params: Promise<{ tr
   const fields = await getFields(user.id)
   const projects = await getProjects(user.id)
   const incompleteFields = incompleteTransactionFields(fields, transaction)
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  const t = await getTranslations({ locale, namespace: "Transactions" })
 
   return (
     <div className="flex flex-wrap flex-row items-start justify-center gap-4 max-w-6xl">
@@ -36,12 +41,12 @@ export default async function TransactionPage({ params }: { params: Promise<{ tr
         {incompleteFields.length > 0 && (
           <div className="w-full flex flex-col gap-1 rounded-md bg-yellow-50 p-5">
             <span>
-              Some fields are incomplete: <strong>{incompleteFields.map((field) => field.name).join(", ")}</strong>
+              {t("incompleteFields")} <strong>{incompleteFields.map((field) => field.name).join(", ")}</strong>
             </span>
             <span className="text-xs text-muted-foreground">
-              You can decide which fields are required for you in{" "}
+              {t("decideFields")}{" "}
               <Link href="/settings/fields" className="underline">
-                Fields settings
+                {t("fieldsSettingsLink")}
               </Link>
               .
             </span>
@@ -59,7 +64,7 @@ export default async function TransactionPage({ params }: { params: Promise<{ tr
 
           {transaction.text && (
             <details className="mt-10">
-              <summary className="cursor-pointer text-sm font-medium">Recognized Text</summary>
+              <summary className="cursor-pointer text-sm font-medium">{t("recognizedText")}</summary>
               <Card className="flex items-stretch p-2 max-w-6xl">
                 <div className="flex-1">
                   <FormTextarea

@@ -14,7 +14,7 @@ export default function DashboardUnsortedWidget({ files }: { files: File[] }) {
       <CardHeader>
         <CardTitle>
           <Link href="/unsorted">
-            {files.length > 0 ? `${files.length} ${t("unsortedFiles").replace("{count}", "")}` : t("noUnsortedFiles")} &rarr;
+            {files.length > 0 ? `${files.length} ${t("unsortedFiles")}` : t("noUnsortedFiles")} &rarr;
           </Link>
         </CardTitle>
       </CardHeader>

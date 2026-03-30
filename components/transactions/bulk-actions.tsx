@@ -38,7 +38,7 @@ export function BulkActionsMenu({ selectedIds, onActionComplete }: BulkActionsMe
     <div className="fixed bottom-4 right-4 z-50">
       <Button variant="destructive" className="min-w-48 gap-2" disabled={isLoading} onClick={handleDelete}>
         <Trash2 className="h-4 w-4" />
-        {t("deleteCount").replace("{count}", String(selectedIds.length))}
+        {t("deleteCount", { count: selectedIds.length })}
       </Button>
     </div>
   )

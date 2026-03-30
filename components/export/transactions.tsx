@@ -83,7 +83,7 @@ export function ExportTransactionsDialog({
       </DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">{t("title").replace("{count}", String(total))}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">{t("title", { count: total })}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
@@ -181,7 +181,7 @@ export function ExportTransactionsDialog({
           <Button type="button" onClick={handleSubmit} disabled={isLoading || isDownloading}>
             {isLoading
               ? progress?.current
-                ? t("archiving").replace("{current}", String(progress.current)).replace("{total}", String(progress.total))
+                ? t("archiving", { current: progress.current, total: progress.total })
                 : t("exporting")
               : isDownloading
                 ? t("downloading")

@@ -115,7 +115,7 @@ export function ImportCSVTable({ fields }: { fields: Field[] }) {
         <div>
           <header className="flex flex-wrap items-center justify-between gap-2 mb-8">
             <h2 className="flex flex-row gap-3 md:gap-5">
-              <span className="text-3xl font-bold tracking-tight">{t("importTitle").replace("{count}", String(csvData.length))}</span>
+              <span className="text-3xl font-bold tracking-tight">{t("importTitle", { count: csvData.length })}</span>
             </h2>
             <div className="flex gap-2">
               <Button onClick={handleSave} disabled={isSaving}>
@@ -125,7 +125,7 @@ export function ImportCSVTable({ fields }: { fields: Field[] }) {
                   </>
                 ) : (
                   <>
-                    <Play /> {t("importButton").replace("{count}", String(csvData.length))}
+                    <Play /> {t("importButton", { count: csvData.length })}
                   </>
                 )}
               </Button>
@@ -191,7 +191,7 @@ export function ImportCSVTable({ fields }: { fields: Field[] }) {
           </div>
 
           {csvData.length > MAX_PREVIEW_ROWS && (
-            <p className="text-muted-foreground mt-4">{t("moreEntries").replace("{count}", String(csvData.length - MAX_PREVIEW_ROWS))}</p>
+            <p className="text-muted-foreground mt-4">{t("moreEntries", { count: csvData.length - MAX_PREVIEW_ROWS })}</p>
           )}
         </div>
       )}

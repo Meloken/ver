@@ -44,7 +44,7 @@ export default function BackupSettingsPage() {
           <Button onClick={handleDownload} disabled={isLoading || isDownloading}>
             {isLoading ? (
               progress?.current ? (
-                `${t("archivingFiles").replace("{current}", String(progress.current)).replace("{total}", String(progress.total))}`
+                t("archivingFiles", { current: progress.current, total: progress.total })
               ) : (
                 t("preparingBackup")
               )

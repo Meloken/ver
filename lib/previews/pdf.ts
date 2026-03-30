@@ -41,7 +41,8 @@ export async function pdfToImages(user: User, origFilePath: string): Promise<{ c
 
   try {
     const convert = fromPath(origFilePath, pdf2picOptions)
-    const results = await convert.bulk(-1, { responseType: "image" }) // TODO: respect MAX_PAGES here too
+    convert.setGMClass(true) // Use ImageMagick instead of GraphicsMagick
+    const results = await convert.bulk([1], { responseType: "image" })
     const paths = results.filter((result) => result && result.path).map((result) => result.path) as string[]
     return {
       contentType: "image/webp",

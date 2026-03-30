@@ -66,7 +66,7 @@ export function AppSidebar({
           <SidebarGroup>
             <UploadButton className="w-full mt-4 mb-2">
               <Upload className="h-4 w-4" />
-              {open ? <span>Upload</span> : ""}
+              {open ? <span>{t("upload")}</span> : ""}
             </UploadButton>
           </SidebarGroup>
           <SidebarGroup>
@@ -113,7 +113,7 @@ export function AppSidebar({
                   <SidebarMenuButton asChild>
                     <Link href="/apps">
                       <LayoutDashboard />
-                      <span>Apps</span>
+                      <span>{t("apps")}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItemWithHighlight>
@@ -138,14 +138,14 @@ export function AppSidebar({
                   <SidebarMenuButton asChild>
                     <Link href="/import/csv">
                       <Import />
-                      Import from CSV
+                      {t("importCsv")}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                    <div className="flex w-full items-center gap-2 pl-2 mt-1 mb-1 text-sm text-sidebar-foreground">
                       <LanguageSwitcher /> 
-                      {open && <span>Language</span>}
+                      {open && <span>{t("language")}</span>}
                    </div>
                 </SidebarMenuItem>
                 {isSelfHosted && (
@@ -153,7 +153,7 @@ export function AppSidebar({
                     <SidebarMenuButton asChild>
                       <Link href="https://vas3k.com/donate/" target="_blank">
                         <Gift />
-                        Thank the author
+                        {t("thankAuthor")}
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

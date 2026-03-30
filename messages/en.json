@@ -4,7 +4,12 @@
     "transactions": "Transactions",
     "unsorted": "Unsorted",
     "projects": "Projects",
-    "settings": "Settings"
+    "settings": "Settings",
+    "apps": "Apps",
+    "upload": "Upload",
+    "importCsv": "Import from CSV",
+    "thankAuthor": "Thank the author",
+    "language": "Language"
   },
   "Transactions": {
     "title": "Transactions",
@@ -12,11 +17,82 @@
     "addTransaction": "Add Transaction",
     "addManually": "Add Manually",
     "analyzeInvoice": "Analyze New Invoice",
-    "emptyState": "You don't seem to have any transactions yet. Let's start and create the first one!"
+    "emptyState": "You don't seem to have any transactions yet. Let's start and create the first one!",
+    "newTransaction": "New Transaction"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "uploading": "Uploading...",
+    "dropFiles": "Take a photo or drop your files here",
+    "dropDescription": "upload receipts, invoices and any other documents for me to scan",
+    "unsortedFiles": "{count} unsorted files",
+    "noUnsortedFiles": "No unsorted files"
+  },
+  "Welcome": {
+    "greeting": "Hey, I'm TaxHacker 👋",
+    "description": "I'm a little accountant app that helps you deal with endless receipts, checks and invoices with (you guessed it) AI. Here's what I can do:",
+    "feature1": "Upload me a photo or a PDF and I will recognize, categorize and save it as a transaction for your tax advisor.",
+    "feature2": "I can automatically convert currencies and look up exchange rates for a given date.",
+    "feature3": "I even support crypto! Historical exchange rates for staking too.",
+    "feature4": "All LLM prompts are configurable: for fields, categories and projects. You can go to settings and change them however you want.",
+    "feature5": "I save data in a local SQLite database and can export it to CSV and ZIP archives.",
+    "feature6": "You can even create your own new fields to be analyzed and they will be included in the CSV export for your tax advisor.",
+    "feature7": "I'm still very young and can make mistakes. Use me at your own risk!",
+    "recommendation": "While I can save you a lot of time in categorizing transactions and generating reports, I still highly recommend giving the results to a professional tax advisor for review when filing your taxes!",
+    "sourceCode": "Source Code",
+    "requestFeature": "Request New Feature",
+    "reportBug": "Report a Bug",
+    "contactAuthor": "Contact the Author",
+    "setApiKey": "Please give your ChatGPT key here",
+    "defaultCurrency": "Default Currency",
+    "categories": "Categories",
+    "projects": "Projects",
+    "customFields": "Custom Fields"
+  },
+  "Unsorted": {
+    "title": "You have {count} unsorted files",
+    "allClear": "Everything is clear! Congrats!",
+    "dragDrop": "Drag and drop new files here to analyze",
+    "uploadNew": "Upload New File",
+    "goToTransactions": "Go to Transactions",
+    "apiKeyRequired": "LLM provider API Key is required for analyzing files",
+    "apiKeyDescription": "Please set your LLM provider API key in the settings to use the analyze form.",
+    "goToSettings": "Go to Settings",
+    "analyzeAll": "Analyze All"
+  },
+  "Settings": {
+    "title": "Settings",
+    "subtitle": "Customize your settings here",
+    "general": "General",
+    "profilePlan": "Profile & Plan",
+    "businessDetails": "Business Details",
+    "llmSettings": "LLM settings",
+    "fields": "Fields",
+    "categories": "Categories",
+    "projects": "Projects",
+    "currencies": "Currencies",
+    "backups": "Backups",
+    "dangerZone": "Danger Zone",
+    "defaultCurrency": "Default Currency",
+    "defaultType": "Default Transaction Type",
+    "defaultCategory": "Default Transaction Category",
+    "saving": "Saving...",
+    "saveSettings": "Save Settings",
+    "saved": "Saved!"
   },
   "Common": {
     "save": "Save",
     "cancel": "Cancel",
-    "loading": "Loading..."
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "search": "Search...",
+    "noResults": "No results found",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No"
   }
 }

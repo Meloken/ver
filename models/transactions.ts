@@ -55,11 +55,11 @@ export const getTransactions = cache(
     if (filters) {
       if (filters.search) {
         where.OR = [
-          { name: { contains: filters.search, mode: "insensitive" } },
-          { merchant: { contains: filters.search, mode: "insensitive" } },
-          { description: { contains: filters.search, mode: "insensitive" } },
-          { note: { contains: filters.search, mode: "insensitive" } },
-          { text: { contains: filters.search, mode: "insensitive" } },
+          { name: { contains: filters.search } },
+          { merchant: { contains: filters.search } },
+          { description: { contains: filters.search } },
+          { note: { contains: filters.search } },
+          { text: { contains: filters.search } },
         ]
       }
 
@@ -128,7 +128,7 @@ export const getTransactionById = cache(async (id: string, userId: string): Prom
 
 export const getTransactionsByFileId = cache(async (fileId: string, userId: string): Promise<Transaction[]> => {
   return await prisma.transaction.findMany({
-    where: { files: { array_contains: [fileId] }, userId },
+    where: { files: { string_contains: fileId }, userId },
   })
 })
 

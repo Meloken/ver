@@ -1,17 +1,20 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { File } from "@/prisma/client"
 import { Cake, FilePlus } from "lucide-react"
 import Link from "next/link"
 
 export default function DashboardUnsortedWidget({ files }: { files: File[] }) {
+  const t = useTranslations("Dashboard")
   return (
     <Card className="w-full h-full sm:max-w-xs bg-accent">
       <CardHeader>
         <CardTitle>
           <Link href="/unsorted">
-            {files.length > 0 ? `${files.length} unsorted files` : "No unsorted files"} &rarr;
+            {files.length > 0 ? `${files.length} ${t("unsortedFiles").replace("{count}", "")}` : t("noUnsortedFiles")} &rarr;
           </Link>
         </CardTitle>
       </CardHeader>

@@ -16,6 +16,8 @@ import { getSettings } from "@/models/settings"
 import { FileText, PartyPopper, Settings, Upload } from "lucide-react"
 import { Metadata } from "next"
 import Link from "next/link"
+import { getTranslations } from "next-intl/server"
+import { cookies } from "next/headers"
 
 export const metadata: Metadata = {
   title: "Unsorted",
@@ -31,10 +33,14 @@ export default async function UnsortedPage() {
   const fields = await getFields(user.id)
   const settings = await getSettings(user.id)
 
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  const t = await getTranslations({ locale, namespace: "Unsorted" })
+
   return (
     <>
       <header className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">You have {files.length} unsorted files</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t("title").replace("{count}", String(files.length))}</h2>
         {files.length > 1 && <AnalyzeAllButton />}
       </header>
 
@@ -46,13 +52,11 @@ export default async function UnsortedPage() {
             <Settings className="h-4 w-4 mt-2" />
             <div className="flex flex-row justify-between pt-2">
               <div className="flex flex-col">
-                <AlertTitle>LLM provider API Key is required for analyzing files</AlertTitle>
-                <AlertDescription>
-                  Please set your LLM provider API key in the settings to use the analyze form.
-                </AlertDescription>
+                <AlertTitle>{t("apiKeyRequired")}</AlertTitle>
+                <AlertDescription>{t("apiKeyDescription")}</AlertDescription>
               </div>
               <Link href="/settings/llm">
-                <Button>Go to Settings</Button>
+                <Button>{t("goToSettings")}</Button>
               </Link>
             </div>
           </Alert>
@@ -86,20 +90,20 @@ export default async function UnsortedPage() {
         {files.length == 0 && (
           <div className="flex flex-col items-center justify-center gap-2 h-full min-h-[600px]">
             <PartyPopper className="w-12 h-12 text-muted-foreground" />
-            <p className="pt-4 text-muted-foreground">Everything is clear! Congrats!</p>
+            <p className="pt-4 text-muted-foreground">{t("allClear")}</p>
             <p className="flex flex-row gap-2 text-muted-foreground">
-              <span>Drag and drop new files here to analyze</span>
+              <span>{t("dragDrop")}</span>
               <Upload />
             </p>
 
             <div className="flex flex-row gap-5 mt-8">
               <UploadButton>
-                <Upload /> Upload New File
+                <Upload /> {t("uploadNew")}
               </UploadButton>
               <Button variant="outline" asChild>
                 <Link href="/transactions">
                   <FileText />
-                  Go to Transactions
+                  {t("goToTransactions")}
                 </Link>
               </Button>
             </div>

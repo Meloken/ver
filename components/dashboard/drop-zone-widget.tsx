@@ -1,5 +1,7 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+
 import { useNotification } from "@/app/(app)/context"
 import { uploadFilesAction } from "@/app/(app)/files/actions"
 import { FormError } from "@/components/forms/error"
@@ -13,6 +15,7 @@ export default function DashboardDropZoneWidget() {
   const { showNotification } = useNotification()
   const [isUploading, setIsUploading] = useState(false)
   const [uploadError, setUploadError] = useState("")
+  const t = useTranslations("Dashboard")
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsUploading(true)
@@ -59,11 +62,11 @@ export default function DashboardDropZoneWidget() {
           )}
           <div>
             <p className="text-lg font-medium">
-              {isUploading ? "Uploading..." : "Take a photo or drop your files here"}
+              {isUploading ? t("uploading") : t("dropFiles")}
             </p>
             {!uploadError && (
               <p className="text-sm text-muted-foreground">
-                upload receipts, invoices and any other documents for me to scan
+                {t("dropDescription")}
               </p>
             )}
             {uploadError && <FormError>{uploadError}</FormError>}

@@ -1,22 +1,98 @@
 {
   "Navigation": {
-    "dashboard": "Gösterge Paneli",
+    "dashboard": "Ana Sayfa",
     "transactions": "İşlemler",
     "unsorted": "Ayrılmamış",
     "projects": "Projeler",
-    "settings": "Ayarlar"
+    "settings": "Ayarlar",
+    "apps": "Uygulamalar",
+    "upload": "Yükle",
+    "importCsv": "CSV'den İçe Aktar",
+    "thankAuthor": "Yazara Teşekkür Et",
+    "language": "Dil"
   },
   "Transactions": {
     "title": "İşlemler",
     "export": "Dışa Aktar",
     "addTransaction": "İşlem Ekle",
     "addManually": "Manuel Ekle",
-    "analyzeInvoice": "Yeni Fatura Yükle",
-    "emptyState": "Henüz hiç işleminiz yok gibi görünüyor. Hadi ilk işlemi oluşturarak başlayalım!"
+    "analyzeInvoice": "Yeni Fatura Analiz Et",
+    "emptyState": "Henüz hiç işleminiz yok. Hadi ilk işlemi oluşturarak başlayalım!",
+    "newTransaction": "Yeni İşlem"
+  },
+  "Dashboard": {
+    "title": "Gösterge Paneli",
+    "uploading": "Yükleniyor...",
+    "dropFiles": "Fotoğraf çekin veya dosyalarınızı buraya sürükleyin",
+    "dropDescription": "Taramam için fişleri, faturaları ve diğer belgeleri yükleyin",
+    "unsortedFiles": "{count} ayrılmamış dosya",
+    "noUnsortedFiles": "Ayrılmamış dosya yok"
+  },
+  "Welcome": {
+    "greeting": "Merhaba, ben TaxHacker 👋",
+    "description": "Sonsuz fiş, çek ve faturaları (evet, tahmin ettiniz) yapay zeka ile yönetmenize yardımcı olan küçük bir muhasebe uygulamasıyım. İşte yapabileceklerim:",
+    "feature1": "Bir fotoğraf veya PDF yükleyin, tanıyıp kategorize edip vergi danışmanınız için bir işlem olarak kaydedeceğim.",
+    "feature2": "Otomatik para birimi dönüştürebilir ve belirli bir tarih için döviz kurlarını arayabilirim.",
+    "feature3": "Kripto bile desteklerim! Staking için de geçmiş döviz kurları.",
+    "feature4": "Tüm LLM komutları yapılandırılabilir: alanlar, kategoriler ve projeler için. Ayarlara gidip istediğiniz gibi değiştirebilirsiniz.",
+    "feature5": "Verileri yerel SQLite veritabanında saklıyorum ve CSV ve ZIP arşivlerine dışa aktarabiliyorum.",
+    "feature6": "Analiz edilecek kendi yeni alanlarınızı bile oluşturabilirsiniz ve vergi danışmanınız için CSV dışa aktarımına dahil edilecektir.",
+    "feature7": "Hâlâ çok gencim ve hata yapabilirim. Kendi sorumluluğunuzda kullanın!",
+    "recommendation": "İşlemleri kategorize etmede ve rapor oluşturmada size çok zaman kazandırabilirim, ancak vergi beyannamesi verirken sonuçları profesyonel bir vergi danışmanına göstermenizi şiddetle tavsiye ederim!",
+    "sourceCode": "Kaynak Kodu",
+    "requestFeature": "Yeni Özellik İste",
+    "reportBug": "Hata Bildir",
+    "contactAuthor": "Yazarla İletişim",
+    "setApiKey": "Lütfen ChatGPT anahtarınızı buraya girin",
+    "defaultCurrency": "Varsayılan Para Birimi",
+    "categories": "Kategoriler",
+    "projects": "Projeler",
+    "customFields": "Özel Alanlar"
+  },
+  "Unsorted": {
+    "title": "{count} ayrılmamış dosyanız var",
+    "allClear": "Her şey temiz! Tebrikler!",
+    "dragDrop": "Analiz etmek için yeni dosyaları buraya sürükleyip bırakın",
+    "uploadNew": "Yeni Dosya Yükle",
+    "goToTransactions": "İşlemlere Git",
+    "apiKeyRequired": "Dosyaları analiz etmek için LLM sağlayıcı API Anahtarı gereklidir",
+    "apiKeyDescription": "Analiz formunu kullanmak için lütfen ayarlardan LLM sağlayıcı API anahtarınızı ayarlayın.",
+    "goToSettings": "Ayarlara Git",
+    "analyzeAll": "Hepsini Analiz Et"
+  },
+  "Settings": {
+    "title": "Ayarlar",
+    "subtitle": "Ayarlarınızı buradan özelleştirin",
+    "general": "Genel",
+    "profilePlan": "Profil ve Plan",
+    "businessDetails": "İşletme Bilgileri",
+    "llmSettings": "LLM Ayarları",
+    "fields": "Alanlar",
+    "categories": "Kategoriler",
+    "projects": "Projeler",
+    "currencies": "Para Birimleri",
+    "backups": "Yedekler",
+    "dangerZone": "Tehlikeli Bölge",
+    "defaultCurrency": "Varsayılan Para Birimi",
+    "defaultType": "Varsayılan İşlem Türü",
+    "defaultCategory": "Varsayılan İşlem Kategorisi",
+    "saving": "Kaydediliyor...",
+    "saveSettings": "Ayarları Kaydet",
+    "saved": "Kaydedildi!"
   },
   "Common": {
     "save": "Kaydet",
     "cancel": "İptal",
-    "loading": "Yükleniyor..."
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "loading": "Yükleniyor...",
+    "search": "Ara...",
+    "noResults": "Sonuç bulunamadı",
+    "confirm": "Onayla",
+    "back": "Geri",
+    "next": "İleri",
+    "close": "Kapat",
+    "yes": "Evet",
+    "no": "Hayır"
   }
 }

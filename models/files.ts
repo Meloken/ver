@@ -1,6 +1,8 @@
 "use server"
 
 import { prisma } from "@/lib/db"
+import { FILE_UPLOAD_PATH } from "@/lib/files"
+import { Prisma } from "@/prisma/client"
 import { unlink } from "fs/promises"
 import path from "path"
 import { cache } from "react"
@@ -51,7 +53,7 @@ export const getFilesByTransactionId = cache(async (id: string, userId: string) 
   return []
 })
 
-export const createFile = async (userId: string, data: any) => {
+export const createFile = async (userId: string, data: Omit<Prisma.FileCreateInput, 'user'>) => {
   return await prisma.file.create({
     data: {
       ...data,
@@ -60,7 +62,7 @@ export const createFile = async (userId: string, data: any) => {
   })
 }
 
-export const updateFile = async (id: string, userId: string, data: any) => {
+export const updateFile = async (id: string, userId: string, data: Prisma.FileUpdateInput) => {
   return await prisma.file.update({
     where: { id, userId },
     data,
@@ -74,7 +76,13 @@ export const deleteFile = async (id: string, userId: string) => {
   }
 
   try {
-    await unlink(path.resolve(path.normalize(file.path)))
+    // Safely resolve file path within upload directory to prevent path traversal
+    const fullPath = path.resolve(FILE_UPLOAD_PATH, path.normalize(file.path))
+    if (!fullPath.startsWith(FILE_UPLOAD_PATH)) {
+      console.error("Path traversal detected, refusing to delete:", file.path)
+      return
+    }
+    await unlink(fullPath)
   } catch (error) {
     console.error("Error deleting file:", error)
   }

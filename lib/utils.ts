@@ -3,15 +3,15 @@ import slugify from "slugify"
 import { twMerge } from "tailwind-merge"
 import { violet, tomato, red, crimson, pink, plum, purple, indigo, blue, sky, cyan, teal, mint, grass, lime, yellow, amber, orange, brown } from "@radix-ui/colors"
 
-const LOCALE = "en-US"
+const DEFAULT_LOCALE = "en-US"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(total: number, currency: string) {
+export function formatCurrency(total: number, currency: string, locale?: string) {
   try {
-    return new Intl.NumberFormat(LOCALE, {
+    return new Intl.NumberFormat(locale || DEFAULT_LOCALE, {
       style: "currency",
       currency: currency,
       minimumFractionDigits: 2,
@@ -36,8 +36,8 @@ export function formatBytes(bytes: number) {
   return `${parseFloat(value.toFixed(2))} ${sizes[i]}`
 }
 
-export function formatNumber(number: number) {
-  return new Intl.NumberFormat(LOCALE, {
+export function formatNumber(number: number, locale?: string) {
+  return new Intl.NumberFormat(locale || DEFAULT_LOCALE, {
     useGrouping: true,
   }).format(number)
 }
@@ -139,10 +139,11 @@ export function generateUUID(): string {
   })
 }
 
-export function formatPeriodLabel(period: string, date: Date): string {
+export function formatPeriodLabel(period: string, date: Date, locale?: string): string {
+  const displayLocale = locale || DEFAULT_LOCALE
   if (period.includes("-") && period.split("-").length === 3) {
     // Daily format: show day/month/year
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString(displayLocale, {
       weekday: "short",
       month: "short",
       day: "numeric",
@@ -150,7 +151,7 @@ export function formatPeriodLabel(period: string, date: Date): string {
     })
   } else {
     // Monthly format: show month/year with short month name
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString(displayLocale, {
       month: "short",
       year: "numeric",
     })

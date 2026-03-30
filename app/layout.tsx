@@ -1,6 +1,13 @@
 import config from "@/lib/config"
 import type { Metadata, Viewport } from "next"
+import { Inter } from "next/font/google"
 import "./globals.css"
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-inter",
+})
 
 export const metadata: Metadata = {
   title: {
@@ -54,8 +61,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className="min-h-screen bg-white antialiased">
+    <html lang={locale} className={inter.variable}>
+      <body className="min-h-screen bg-white antialiased font-sans">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
@@ -63,3 +70,4 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   )
 }
+

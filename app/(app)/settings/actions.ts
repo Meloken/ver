@@ -137,7 +137,7 @@ export async function deleteProjectAction(userId: string, code: string) {
   try {
     await deleteProject(userId, code)
   } catch (error) {
-    return { success: false, error: "Failed to delete project" + error }
+    return { success: false, error: `Failed to delete project: ${error}` }
   }
   revalidatePath("/settings/projects")
   return { success: true }
@@ -175,7 +175,7 @@ export async function deleteCurrencyAction(userId: string, code: string) {
   try {
     await deleteCurrency(userId, code)
   } catch (error) {
-    return { success: false, error: "Failed to delete currency" + error }
+    return { success: false, error: `Failed to delete currency: ${error}` }
   }
   revalidatePath("/settings/currencies")
   return { success: true }
@@ -231,7 +231,7 @@ export async function deleteCategoryAction(userId: string, code: string) {
   try {
     await deleteCategory(userId, code)
   } catch (error) {
-    return { success: false, error: "Failed to delete category" + error }
+    return { success: false, error: `Failed to delete category: ${error}` }
   }
   revalidatePath("/settings/categories")
   return { success: true }
@@ -283,7 +283,7 @@ export async function deleteFieldAction(userId: string, code: string) {
   try {
     await deleteField(userId, code)
   } catch (error) {
-    return { success: false, error: "Failed to delete field" + error }
+    return { success: false, error: `Failed to delete field: ${error}` }
   }
   revalidatePath("/settings/fields")
   return { success: true }

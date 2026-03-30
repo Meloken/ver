@@ -15,12 +15,16 @@ import { cookies } from "next/headers"
 
 export async function StatsWidget({ filters }: { filters: TransactionFilters }) {
   const user = await getCurrentUser()
-  const projects = await getProjects(user.id)
-  const settings = await getSettings(user.id)
+  const [projects, settings] = await Promise.all([
+    getProjects(user.id),
+    getSettings(user.id),
+  ])
   const defaultCurrency = settings.default_currency || "EUR"
 
-  const stats = await getDashboardStats(user.id, filters)
-  const statsTimeSeries = await getDetailedTimeSeriesStats(user.id, filters, defaultCurrency)
+  const [stats, statsTimeSeries] = await Promise.all([
+    getDashboardStats(user.id, filters),
+    getDetailedTimeSeriesStats(user.id, filters, defaultCurrency),
+  ])
   const cookieStore = await cookies()
   const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
   const t = await getTranslations({ locale, namespace: "Dashboard" })

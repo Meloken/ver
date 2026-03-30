@@ -26,12 +26,14 @@ export const metadata: Metadata = {
 
 export default async function UnsortedPage() {
   const user = await getCurrentUser()
-  const files = await getUnsortedFiles(user.id)
-  const categories = await getCategories(user.id)
-  const projects = await getProjects(user.id)
-  const currencies = await getCurrencies(user.id)
-  const fields = await getFields(user.id)
-  const settings = await getSettings(user.id)
+  const [files, categories, projects, currencies, fields, settings] = await Promise.all([
+    getUnsortedFiles(user.id),
+    getCategories(user.id),
+    getProjects(user.id),
+    getCurrencies(user.id),
+    getFields(user.id),
+    getSettings(user.id),
+  ])
 
   const cookieStore = await cookies()
   const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'

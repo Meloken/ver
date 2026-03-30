@@ -31,13 +31,15 @@ export default async function TransactionsPage({ searchParams }: { searchParams:
   const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
   const t = await getTranslations({ locale, namespace: "Transactions" })
 
-  const { transactions, total } = await getTransactions(user.id, filters, {
-    limit: TRANSACTIONS_PER_PAGE,
-    offset: ((page ?? 1) - 1) * TRANSACTIONS_PER_PAGE,
-  })
-  const categories = await getCategories(user.id)
-  const projects = await getProjects(user.id)
-  const fields = await getFields(user.id)
+  const [{ transactions, total }, categories, projects, fields] = await Promise.all([
+    getTransactions(user.id, filters, {
+      limit: TRANSACTIONS_PER_PAGE,
+      offset: ((page ?? 1) - 1) * TRANSACTIONS_PER_PAGE,
+    }),
+    getCategories(user.id),
+    getProjects(user.id),
+    getFields(user.id),
+  ])
 
   // Reset page if user clicks a filter and no transactions are found
   if (page && page > 1 && transactions.length === 0) {

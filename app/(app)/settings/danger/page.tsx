@@ -1,22 +1,26 @@
 import { Button } from "@/components/ui/button"
 import { getCurrentUser } from "@/lib/auth"
 import { resetFieldsAndCategories, resetLLMSettings } from "./actions"
+import { getTranslations } from "next-intl/server"
+import { cookies } from "next/headers"
 
 export default async function DangerSettingsPage() {
   const user = await getCurrentUser()
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  const t = await getTranslations({ locale, namespace: "DangerZone" })
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-2 text-red-500">The Danger Zone</h1>
+      <h1 className="text-2xl font-bold mb-2 text-red-500">{t("title")}</h1>
       <p className="text-sm text-red-400 mb-8 max-w-prose">
-        The settings here will overwrite your existing fields, categories and prompts. Use them only if something is
-        broken.
+        {t("description")}
       </p>
       <div className="space-y-10">
         <div className="space-y-2">
-          <h3 className="text-lg font-bold">LLM settings</h3>
+          <h3 className="text-lg font-bold">{t("llmTitle")}</h3>
           <p className="text-sm text-gray-500 mb-6 max-w-prose">
-            This will reset the system prompt and other LLM settings to their default values
+            {t("llmDescription")}
           </p>
           <form
             action={async () => {
@@ -25,14 +29,14 @@ export default async function DangerSettingsPage() {
             }}
           >
             <Button variant="destructive" type="submit">
-              Reset main LLM prompt
+              {t("resetLLM")}
             </Button>
           </form>
         </div>
         <div className="space-y-2">
-          <h3 className="text-lg font-bold">Fields, currencies and categories</h3>
+          <h3 className="text-lg font-bold">{t("fieldsTitle")}</h3>
           <p className="text-sm text-gray-500 mb-6 max-w-prose">
-            This will reset all fields, currencies and categories to their default values
+            {t("fieldsDescription")}
           </p>
           <form
             action={async () => {
@@ -41,7 +45,7 @@ export default async function DangerSettingsPage() {
             }}
           >
             <Button variant="destructive" type="submit">
-              Reset fields, currencies and categories
+              {t("resetFields")}
             </Button>
           </form>
         </div>

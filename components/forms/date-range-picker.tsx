@@ -4,6 +4,7 @@ import { format, startOfMonth, startOfQuarter, subMonths, subWeeks } from "date-
 import { CalendarIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { DateRange } from "react-day-picker"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -19,25 +20,27 @@ export function DateRangePicker({
   defaultRange?: string
   onChange?: (date: DateRange | undefined) => void
 }) {
+  const t = useTranslations("DatePicker")
+  const tCommon = useTranslations("Common")
   const predefinedRanges = [
     {
       code: "last-4-weeks",
-      label: "Last 4 weeks",
+      label: t("last4weeks"),
       range: { from: subWeeks(new Date(), 4), to: new Date() },
     },
     {
       code: "last-12-months",
-      label: "Last 12 months",
+      label: t("last12months"),
       range: { from: subMonths(new Date(), 12), to: new Date() },
     },
     {
       code: "month-to-date",
-      label: "Month to date",
+      label: t("monthToDate"),
       range: { from: startOfMonth(new Date()), to: new Date() },
     },
     {
       code: "quarter-to-date",
-      label: "Quarter to date",
+      label: t("quarterToDate"),
       range: { from: startOfQuarter(new Date()), to: new Date() },
     },
     {
@@ -58,7 +61,7 @@ export function DateRangePicker({
     },
     {
       code: "all-time",
-      label: "All time",
+      label: t("allTime"),
       range: { from: undefined, to: undefined },
     },
   ]
@@ -80,7 +83,7 @@ export function DateRangePicker({
           ? `${format(dateRange.from, "LLL dd, y")} - ${format(dateRange.to, "LLL dd, y")}`
           : format(dateRange.from, "LLL dd, y")
       }
-      return "Select dates"
+      return tCommon("selectDates")
     }
     return predefinedRanges.find((range) => range.code === rangeName)?.label || "Select dates"
   }

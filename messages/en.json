@@ -138,6 +138,78 @@
     "close": "Close",
     "yes": "Yes",
     "no": "No",
-    "convertTo": "Convert to"
+    "convertTo": "Convert to",
+    "clearFilters": "Clear all filters",
+    "selectDates": "Select dates"
+  },
+  "DatePicker": {
+    "last4weeks": "Last 4 weeks",
+    "last12months": "Last 12 months",
+    "monthToDate": "Month to date",
+    "quarterToDate": "Quarter to date",
+    "allTime": "All time"
+  },
+  "Filters": {
+    "searchPlaceholder": "Search transactions...",
+    "allCategories": "All categories",
+    "allProjects": "All projects"
+  },
+  "BulkActions": {
+    "confirmBulkDelete": "Are you sure you want to delete these transactions and all their files? This action cannot be undone.",
+    "deleteCount": "Delete {count} transactions",
+    "failedDelete": "Failed to delete transactions"
+  },
+  "TransactionList": {
+    "netTotal": "Net Total",
+    "turnover": "Turnover"
+  },
+  "ImportCSV": {
+    "uploadDescription": "Upload your CSV file to import transactions",
+    "parsing": "Parsing...",
+    "importFromCsv": "Import from CSV",
+    "importTitle": "Import {count} items from CSV",
+    "importing": "Importing...",
+    "importButton": "Import {count} transactions",
+    "firstRowHeader": "First row is a header",
+    "skipColumn": "Skip column",
+    "moreEntries": "and {count} more entries...",
+    "mapAtLeastOne": "Please map at least one column to a field"
+  },
+  "LLM": {
+    "providers": "LLM providers",
+    "dragToReorder": "Drag provider blocks to reorder. First is highest priority.",
+    "promptTitle": "Prompt for File Analysis Form",
+    "apiKey": "API key",
+    "modelName": "Model name",
+    "getApiKey": "Get your API key from",
+    "currentSchema": "Current JSON Schema for structured output",
+    "editFields": "Edit Fields",
+    "dragToReorderShort": "Drag to reorder"
+  },
+  "Backups": {
+    "downloadTitle": "Download backup",
+    "archivingFiles": "Archiving {current}/{total} files",
+    "preparingBackup": "Preparing backup. Don't close the page...",
+    "downloading": "Archive is created. Downloading...",
+    "downloadButton": "Download Data Archive",
+    "archiveDescription": "Inside the archive you will find all the uploaded files, as well as JSON files for transactions, categories, projects, fields, currencies, and settings. You can view, edit or migrate your data to another service.",
+    "restoreTitle": "Restore from a backup",
+    "restoreWarning": "\u26a0\ufe0f This action is irreversible. Restoring from a backup will delete all existing data from your current database and remove all uploaded files. Be careful and make a backup first!",
+    "confirmDelete": "I understand that it will permanently delete all existing data",
+    "restoring": "Restoring from backup... (it can take a while)",
+    "restoreButton": "Restore from backup",
+    "restoreSuccess": "Backup restored successfully",
+    "restoreSuccessDesc": "You can now continue using the app. Import stats:",
+    "items": "items"
+  },
+  "DangerZone": {
+    "title": "The Danger Zone",
+    "description": "The settings here will overwrite your existing fields, categories and prompts. Use them only if something is broken.",
+    "llmTitle": "LLM settings",
+    "llmDescription": "This will reset the system prompt and other LLM settings to their default values",
+    "resetLLM": "Reset main LLM prompt",
+    "fieldsTitle": "Fields, currencies and categories",
+    "fieldsDescription": "This will reset all fields, currencies and categories to their default values",
+    "resetFields": "Reset fields, currencies and categories"
   }
 }

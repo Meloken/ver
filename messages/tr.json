@@ -138,6 +138,78 @@
     "close": "Kapat",
     "yes": "Evet",
     "no": "Hayır",
-    "convertTo": "Dönüştür"
+    "convertTo": "Dönüştür",
+    "clearFilters": "Tüm filtreleri temizle",
+    "selectDates": "Tarih seçin"
+  },
+  "DatePicker": {
+    "last4weeks": "Son 4 hafta",
+    "last12months": "Son 12 ay",
+    "monthToDate": "Ayın başından itibaren",
+    "quarterToDate": "Çeyreğin başından itibaren",
+    "allTime": "Tüm zamanlar"
+  },
+  "Filters": {
+    "searchPlaceholder": "İşlemlerde ara...",
+    "allCategories": "Tüm kategoriler",
+    "allProjects": "Tüm projeler"
+  },
+  "BulkActions": {
+    "confirmBulkDelete": "Bu işlemleri ve tüm dosyalarını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+    "deleteCount": "{count} işlemi sil",
+    "failedDelete": "İşlemler silinemedi"
+  },
+  "TransactionList": {
+    "netTotal": "Net Toplam",
+    "turnover": "Ciro"
+  },
+  "ImportCSV": {
+    "uploadDescription": "İşlemleri içe aktarmak için CSV dosyanızı yükleyin",
+    "parsing": "Ayrıştırılıyor...",
+    "importFromCsv": "CSV'den İçe Aktar",
+    "importTitle": "CSV'den {count} öğe içe aktar",
+    "importing": "İçe aktarılıyor...",
+    "importButton": "{count} işlemi içe aktar",
+    "firstRowHeader": "İlk satır başlık satırı",
+    "skipColumn": "Sütunu atla",
+    "moreEntries": "ve {count} giriş daha...",
+    "mapAtLeastOne": "Lütfen en az bir sütunu bir alanla eşleştirin"
+  },
+  "LLM": {
+    "providers": "LLM sağlayıcıları",
+    "dragToReorder": "Sıralamak için sürükleyin. İlk sıradaki en yüksek önceliğe sahiptir.",
+    "promptTitle": "Dosya Analiz Formu İçin Komut",
+    "apiKey": "API anahtarı",
+    "modelName": "Model adı",
+    "getApiKey": "API anahtarınızı buradan alın:",
+    "currentSchema": "Yapılandırılmış çıktı için mevcut JSON Şeması",
+    "editFields": "Alanları Düzenle",
+    "dragToReorderShort": "Sıralamak için sürükleyin"
+  },
+  "Backups": {
+    "downloadTitle": "Yedek İndir",
+    "archivingFiles": "{current}/{total} dosya arşivleniyor",
+    "preparingBackup": "Yedek hazırlanıyor. Sayfayı kapatmayın...",
+    "downloading": "Arşiv oluşturuldu. İndiriliyor...",
+    "downloadButton": "Veri Arşivini İndir",
+    "archiveDescription": "Arşiv içinde yüklenen tüm dosyaları, işlemler, kategoriler, projeler, alanlar, para birimleri ve ayarlar için JSON dosyalarını bulacaksınız. Verilerinizi görüntüleyebilir, düzenleyebilir veya başka bir servise taşıyabilirsiniz.",
+    "restoreTitle": "Yedekten Geri Yükle",
+    "restoreWarning": "⚠️ Bu işlem geri alınamaz. Yedekten geri yükleme, mevcut veritabanınızdaki tüm verileri silecek ve yüklenen tüm dosyaları kaldıracaktır. Dikkatli olun ve önce bir yedek alın!",
+    "confirmDelete": "Mevcut tüm verilerin kalıcı olarak silineceğini anlıyorum",
+    "restoring": "Yedekten geri yükleniyor... (biraz zaman alabilir)",
+    "restoreButton": "Yedekten Geri Yükle",
+    "restoreSuccess": "Yedek başarıyla geri yüklendi",
+    "restoreSuccessDesc": "Artık uygulamayı kullanmaya devam edebilirsiniz. İçe aktarma istatistikleri:",
+    "items": "öğe"
+  },
+  "DangerZone": {
+    "title": "Tehlikeli Bölge",
+    "description": "Buradaki ayarlar mevcut alanlarınızı, kategorilerinizi ve komutlarınızı üzerine yazacaktır. Yalnızca bir şey bozulduğunda kullanın.",
+    "llmTitle": "LLM ayarları",
+    "llmDescription": "Bu, sistem komutunu ve diğer LLM ayarlarını varsayılan değerlerine sıfırlayacaktır",
+    "resetLLM": "Ana LLM komutunu sıfırla",
+    "fieldsTitle": "Alanlar, para birimleri ve kategoriler",
+    "fieldsDescription": "Bu, tüm alanları, para birimlerini ve kategorileri varsayılan değerlerine sıfırlayacaktır",
+    "resetFields": "Alanları, para birimlerini ve kategorileri sıfırla"
   }
 }

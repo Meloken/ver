@@ -8,9 +8,11 @@ import { useProgress } from "@/hooks/use-progress"
 import { Download, Loader2 } from "lucide-react"
 import { useActionState } from "react"
 import { restoreBackupAction } from "./actions"
+import { useTranslations } from "next-intl"
 
 export default function BackupSettingsPage() {
   const [restoreState, restoreBackup, restorePending] = useActionState(restoreBackupAction, null)
+  const t = useTranslations("Backups")
 
   const { isLoading, startProgress, progress } = useProgress({
     onError: (error) => {
@@ -37,35 +39,33 @@ export default function BackupSettingsPage() {
   return (
     <div className="container flex flex-col gap-4">
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">Download backup</h1>
+        <h1 className="text-2xl font-bold">{t("downloadTitle")}</h1>
         <div className="flex flex-row gap-4">
           <Button onClick={handleDownload} disabled={isLoading || isDownloading}>
             {isLoading ? (
               progress?.current ? (
-                `Archiving ${progress.current}/${progress.total} files`
+                `${t("archivingFiles").replace("{current}", String(progress.current)).replace("{total}", String(progress.total))}`
               ) : (
-                "Preparing backup. Don't close the page..."
+                t("preparingBackup")
               )
             ) : isDownloading ? (
-              "Archive is created. Downloading..."
+              t("downloading")
             ) : (
               <>
-                <Download className="mr-2" /> Download Data Archive
+                <Download className="mr-2" /> {t("downloadButton")}
               </>
             )}
           </Button>
         </div>
         <div className="text-sm text-muted-foreground max-w-xl">
-          Inside the archive you will find all the uploaded files, as well as JSON files for transactions, categories,
-          projects, fields, currencies, and settings. You can view, edit or migrate your data to another service.
+          {t("archiveDescription")}
         </div>
       </div>
 
       <Card className="flex flex-col gap-2 mt-16 p-5 bg-red-100 max-w-xl">
-        <h2 className="text-xl font-semibold">Restore from a backup</h2>
+        <h2 className="text-xl font-semibold">{t("restoreTitle")}</h2>
         <p className="text-sm text-muted-foreground">
-          ⚠️ This action is irreversible. Restoring from a backup will delete all existing data from your current
-          database and remove all uploaded files. Be careful and make a backup first!
+          {t("restoreWarning")}
         </p>
         <form action={restoreBackup}>
           <div className="flex flex-col gap-4 pt-4">
@@ -74,15 +74,15 @@ export default function BackupSettingsPage() {
             </label>
             <label className="flex flex-row gap-2 items-center">
               <input type="checkbox" name="removeExistingData" required />
-              <span className="text-red-500">I undestand that it will permanently delete all existing data</span>
+              <span className="text-red-500">{t("confirmDelete")}</span>
             </label>
             <Button type="submit" variant="destructive" disabled={restorePending}>
               {restorePending ? (
                 <>
-                  <Loader2 className="animate-spin" /> Restoring from backup... (it can take a while)
+                    <Loader2 className="animate-spin" /> {t("restoring")}
                 </>
               ) : (
-                "Restore from backup"
+                t("restoreButton")
               )}
             </Button>
           </div>
@@ -92,12 +92,12 @@ export default function BackupSettingsPage() {
 
       {restoreState?.success && (
         <Card className="flex flex-col gap-2 p-5 bg-green-100 max-w-xl">
-          <h2 className="text-xl font-semibold">Backup restored successfully</h2>
-          <p className="text-sm text-muted-foreground">You can now continue using the app. Import stats:</p>
+          <h2 className="text-xl font-semibold">{t("restoreSuccess")}</h2>
+          <p className="text-sm text-muted-foreground">{t("restoreSuccessDesc")}</p>
           <ul className="list-disc list-inside">
             {Object.entries(restoreState.data?.counters || {}).map(([key, value]) => (
               <li key={key}>
-                <span className="font-bold">{key}</span>: {value} items
+                <span className="font-bold">{key}</span>: {value} {t("items")}
               </li>
             ))}
           </ul>

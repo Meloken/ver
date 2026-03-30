@@ -9,6 +9,7 @@ import { isFiltered, useTransactionFilters } from "@/hooks/use-transaction-filte
 import { TransactionFilters } from "@/models/transactions"
 import { Category, Field, Project } from "@/prisma/client"
 import { X } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function TransactionSearchAndFilters({
   categories,
@@ -20,6 +21,7 @@ export function TransactionSearchAndFilters({
   fields: Field[]
 }) {
   const [filters, setFilters] = useTransactionFilters()
+  const t = useTranslations("Filters")
 
   const handleFilterChange = (name: keyof TransactionFilters, value: any) => {
     setFilters((prev) => ({
@@ -33,7 +35,7 @@ export function TransactionSearchAndFilters({
       <div className="flex flex-wrap gap-4">
         <div className="flex-1 min-w-[200px]">
           <Input
-            placeholder="Search transactions..."
+            placeholder={t("searchPlaceholder")}
             defaultValue={filters.search}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -46,10 +48,10 @@ export function TransactionSearchAndFilters({
 
         <Select value={filters.categoryCode} onValueChange={(value) => handleFilterChange("categoryCode", value)}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="All categories" />
+            <SelectValue placeholder={t("allCategories")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="-">All categories</SelectItem>
+            <SelectItem value="-">{t("allCategories")}</SelectItem>
             {categories.map((category) => (
               <SelectItem key={category.code} value={category.code}>
                 <div className="flex items-center gap-2">
@@ -64,10 +66,10 @@ export function TransactionSearchAndFilters({
         {projects.length > 1 && (
           <Select value={filters.projectCode} onValueChange={(value) => handleFilterChange("projectCode", value)}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="All projects" />
+              <SelectValue placeholder={t("allProjects")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="-">All projects</SelectItem>
+              <SelectItem value="-">{t("allProjects")}</SelectItem>
               {projects.map((project) => (
                 <SelectItem key={project.code} value={project.code}>
                   <div className="flex items-center gap-2">

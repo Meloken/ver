@@ -10,6 +10,7 @@ import { Field } from "@/prisma/client"
 import { CircleCheckBig, Edit, GripVertical } from "lucide-react"
 import Link from "next/link"
 import { useState, useActionState } from "react"
+import { useTranslations } from "next-intl"
 import {
   DndContext,
   closestCenter,
@@ -48,6 +49,8 @@ export default function LLMSettingsForm({
 }) {
   const [saveState, saveAction, pending] = useActionState(saveSettingsAction, null)
   const [providerOrder, setProviderOrder] = useState<string[]>(getInitialProviderOrder(settings))
+  const t = useTranslations("LLM")
+  const tSettings = useTranslations("Settings")
 
   // Controlled values for each provider
   const [providerValues, setProviderValues] = useState(() => {
@@ -76,7 +79,7 @@ export default function LLMSettingsForm({
       <form action={saveAction} className="space-y-4">
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">LLM providers</label>
+          <label className="text-sm font-medium">{t("providers")}</label>
           <DndProviderBlocks
             providerOrder={providerOrder}
             setProviderOrder={setProviderOrder}
@@ -84,13 +87,13 @@ export default function LLMSettingsForm({
             handleProviderValueChange={handleProviderValueChange}
           />
           <small className="text-muted-foreground">
-            Drag provider blocks to reorder. First is highest priority.
+            {t("dragToReorder")}
           </small>
         </div>
         <input type="hidden" name="llm_providers" value={providerOrder.join(",")} />
 
         <FormTextarea
-          title="Prompt for File Analysis Form"
+          title={t("promptTitle")}
           name="prompt_analyse_new_file"
           defaultValue={settings.prompt_analyse_new_file}
           className="h-96"
@@ -98,12 +101,12 @@ export default function LLMSettingsForm({
 
         <div className="flex flex-row items-center gap-4">
           <Button type="submit" disabled={pending}>
-            {pending ? "Saving..." : "Save Settings"}
+            {pending ? tSettings("saving") : tSettings("saveSettings")}
           </Button>
           {saveState?.success && (
             <p className="text-green-500 flex flex-row items-center gap-2">
               <CircleCheckBig />
-              Saved!
+              {tSettings("saved")}
             </p>
           )}
         </div>
@@ -114,20 +117,13 @@ export default function LLMSettingsForm({
       <Card className="flex flex-col gap-4 p-4 bg-accent mt-20">
         <CardTitle className="flex flex-row justify-between items-center gap-2">
           <span className="text-md font-medium">
-            Current JSON Schema for{" "}
-            <a
-              href="https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses&lang=javascript"
-              target="_blank"
-              className="underline"
-            >
-              structured output
-            </a>
+            {t("currentSchema")}{" "}
           </span>
           <Link
             href="/settings/fields"
             className="text-xs underline inline-flex flex-row items-center gap-1 text-muted-foreground"
           >
-            <Edit className="w-4 h-4" /> Edit Fields
+            <Edit className="w-4 h-4" /> {t("editFields")}
           </Link>
         </CardTitle>
         <pre className="text-xs overflow-hidden text-ellipsis">
@@ -201,7 +197,7 @@ function SortableProviderBlock({ id, idx, providerKey, value, handleValueChange 
           {...attributes}
           {...listeners}
           className="cursor-grab p-1 rounded hover:bg-accent transition inline-flex items-center"
-          aria-label="Drag to reorder"
+          aria-label={t("dragToReorderShort")}
         >
           <GripVertical className="w-5 h-5 text-muted-foreground" />
         </span>
@@ -214,7 +210,7 @@ function SortableProviderBlock({ id, idx, providerKey, value, handleValueChange 
           value={value.apiKey}
           onChange={e => handleValueChange(provider.key, "apiKey", e.target.value)}
           className="flex-1 border rounded px-2 py-1"
-          placeholder="API key"
+          placeholder={t("apiKey")}
         />
         <input
           type="text"
@@ -222,12 +218,12 @@ function SortableProviderBlock({ id, idx, providerKey, value, handleValueChange 
           value={value.model}
           onChange={e => handleValueChange(provider.key, "model", e.target.value)}
           className="flex-1 border rounded px-2 py-1"
-          placeholder="Model name"
+          placeholder={t("modelName")}
         />
       </div>
       {provider.apiDoc && (
         <small className="text-muted-foreground">
-          Get your API key from{" "}
+          {t("getApiKey")}{" "}
           <a
             href={provider.apiDoc}
             target="_blank"

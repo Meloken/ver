@@ -11,6 +11,7 @@ import { formatDate } from "date-fns"
 import { ArrowDownIcon, ArrowUpIcon, File } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 
 type FieldRenderer = {
   name: string
@@ -19,7 +20,7 @@ type FieldRenderer = {
   sortable: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formatValue?: (transaction: Transaction & any) => React.ReactNode
-  footerValue?: (transactions: Transaction[]) => React.ReactNode
+  footerValue?: (transactions: Transaction[], tList?: any) => React.ReactNode
 }
 
 type FieldWithRenderer = Field & {
@@ -112,14 +113,16 @@ export const standardFieldRenderers: Record<string, FieldRenderer> = {
         </div>
       </div>
     ),
-    footerValue: (transactions: Transaction[]) => {
+    footerValue: (transactions: Transaction[], tList?: any) => {
       const netTotalPerCurrency = calcNetTotalPerCurrency(transactions)
       const turnoverPerCurrency = calcTotalPerCurrency(transactions)
 
       return (
         <div className="flex flex-col gap-3 text-right">
           <dl className="space-y-1">
-            <dt className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Net Total</dt>
+            <dt className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              {tList ? tList("netTotal") : "Net Total"}
+            </dt>
             {Object.entries(netTotalPerCurrency).map(([currency, total]) => (
               <dd
                 key={`net-${currency}`}
@@ -130,7 +133,9 @@ export const standardFieldRenderers: Record<string, FieldRenderer> = {
             ))}
           </dl>
           <dl className="space-y-1">
-            <dt className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Turnover</dt>
+            <dt className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              {tList ? tList("turnover") : "Turnover"}
+            </dt>
             {Object.entries(turnoverPerCurrency).map(([currency, total]) => (
               <dd key={`turnover-${currency}`} className="text-sm text-muted-foreground">
                 {formatCurrency(total, currency)}
@@ -184,6 +189,8 @@ export function TransactionList({ transactions, fields = [] }: { transactions: T
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const router = useRouter()
   const searchParams = useSearchParams()
+  const tList = useTranslations("TransactionList")
+  const standardFields = ["name", "merchant", "issuedAt", "projectCode", "categoryCode", "files", "total", "convertedTotal", "currencyCode"]
 
   const [sorting, setSorting] = useState<{ field: string | null; direction: "asc" | "desc" | null }>(() => {
     const ordering = searchParams.get("ordering")
@@ -288,7 +295,7 @@ export function TransactionList({ transactions, fields = [] }: { transactions: T
                 )}
                 onClick={() => field.renderer.sortable && handleSort(field.code)}
               >
-                {field.name || field.renderer.name}
+                {standardFields.includes(field.code) ? tList(field.code as any) : (field.name || field.renderer.name)}
                 {field.renderer.sortable && getSortIcon(field.code)}
               </TableHead>
             ))}
@@ -328,7 +335,7 @@ export function TransactionList({ transactions, fields = [] }: { transactions: T
             <TableCell></TableCell>
             {visibleFields.map((field) => (
               <TableCell key={field.code} className={field.renderer.classes}>
-                {field.renderer.footerValue ? field.renderer.footerValue(transactions) : ""}
+                {field.renderer.footerValue ? field.renderer.footerValue(transactions, tList) : ""}
               </TableCell>
             ))}
           </TableRow>

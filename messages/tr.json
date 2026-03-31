@@ -161,7 +161,16 @@
   },
   "TransactionList": {
     "netTotal": "Net Toplam",
-    "turnover": "Ciro"
+    "turnover": "Ciro",
+    "name": "İsim",
+    "merchant": "Satıcı / Firma",
+    "issuedAt": "Tarih",
+    "projectCode": "Proje",
+    "categoryCode": "Kategori",
+    "files": "Dosyalar",
+    "total": "Tutar",
+    "convertedTotal": "Çevrilen Tutar",
+    "currencyCode": "Birim"
   },
   "ImportCSV": {
     "uploadDescription": "İşlemleri içe aktarmak için CSV dosyanızı yükleyin",

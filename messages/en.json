@@ -161,7 +161,16 @@
   },
   "TransactionList": {
     "netTotal": "Net Total",
-    "turnover": "Turnover"
+    "turnover": "Turnover",
+    "name": "Name",
+    "merchant": "Merchant",
+    "issuedAt": "Date",
+    "projectCode": "Project",
+    "categoryCode": "Category",
+    "files": "Files",
+    "total": "Total",
+    "convertedTotal": "Converted",
+    "currencyCode": "Currency"
   },
   "ImportCSV": {
     "uploadDescription": "Upload your CSV file to import transactions",

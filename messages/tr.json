@@ -9,7 +9,9 @@
     "upload": "Yükle",
     "importCsv": "CSV'den İçe Aktar",
     "thankAuthor": "Yazara Teşekkür Et",
-    "language": "Dil"
+    "language": "Dil",
+    "subscriptions": "Abonelikler",
+    "budgets": "Bütçeler"
   },
   "Transactions": {
     "title": "İşlemler",

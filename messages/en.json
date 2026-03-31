@@ -9,7 +9,9 @@
     "upload": "Upload",
     "importCsv": "Import from CSV",
     "thankAuthor": "Thank the author",
-    "language": "Language"
+    "language": "Language",
+    "subscriptions": "Subscriptions",
+    "budgets": "Budgets"
   },
   "Transactions": {
     "title": "Transactions",

@@ -279,68 +279,137 @@ export function TransactionList({ transactions, fields = [] }: { transactions: T
   }
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="min-w-[30px] select-none">
-              <Checkbox checked={selectedIds.length === transactions.length} onCheckedChange={toggleAllRows} />
-            </TableHead>
-            {visibleFields.map((field) => (
-              <TableHead
-                key={field.code}
-                className={cn(
-                  field.renderer.classes,
-                  field.renderer.sortable && "hover:cursor-pointer hover:bg-accent select-none"
-                )}
-                onClick={() => field.renderer.sortable && handleSort(field.code)}
-              >
-                {standardFields.includes(field.code) ? tList(field.code as any) : (field.name || field.renderer.name)}
-                {field.renderer.sortable && getSortIcon(field.code)}
+    <div className="rounded-md border bg-card text-card-foreground">
+      {/* Desktop View */}
+      <div className="hidden md:block">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="min-w-[30px] select-none">
+                <Checkbox checked={selectedIds.length === transactions.length && transactions.length > 0} onCheckedChange={toggleAllRows} />
               </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {transactions.map((transaction) => (
-            <TableRow
-              key={transaction.id}
-              className={cn(
-                isTransactionIncomplete(fields, transaction) && "bg-yellow-50",
-                selectedIds.includes(transaction.id) && "bg-muted",
-                "cursor-pointer hover:bg-muted/50"
-              )}
-              onClick={() => handleRowClick(transaction.id)}
-            >
-              <TableCell onClick={(e) => e.stopPropagation()}>
-                <Checkbox
-                  checked={selectedIds.includes(transaction.id)}
-                  onCheckedChange={(checked) => {
-                    if (checked !== "indeterminate") {
-                      toggleOneRow({ stopPropagation: () => {} } as React.MouseEvent, transaction.id)
-                    }
-                  }}
-                />
-              </TableCell>
               {visibleFields.map((field) => (
-                <TableCell key={field.code} className={field.renderer.classes} suppressHydrationWarning>
-                  {renderFieldInTable(transaction, field)}
+                <TableHead
+                  key={field.code}
+                  className={cn(
+                    field.renderer.classes,
+                    field.renderer.sortable && "hover:cursor-pointer hover:bg-accent select-none"
+                  )}
+                  onClick={() => field.renderer.sortable && handleSort(field.code)}
+                >
+                  {standardFields.includes(field.code) ? tList(field.code as any) : (field.name || field.renderer.name)}
+                  {field.renderer.sortable && getSortIcon(field.code)}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {transactions.map((transaction) => (
+              <TableRow
+                key={transaction.id}
+                className={cn(
+                  isTransactionIncomplete(fields, transaction) && "bg-yellow-50 dark:bg-yellow-950/20",
+                  selectedIds.includes(transaction.id) && "bg-muted",
+                  "cursor-pointer hover:bg-muted/50"
+                )}
+                onClick={() => handleRowClick(transaction.id)}
+              >
+                <TableCell onClick={(e) => e.stopPropagation()}>
+                  <Checkbox
+                    checked={selectedIds.includes(transaction.id)}
+                    onCheckedChange={(checked) => {
+                      if (checked !== "indeterminate") {
+                        toggleOneRow({ stopPropagation: () => {} } as React.MouseEvent, transaction.id)
+                      }
+                    }}
+                  />
+                </TableCell>
+                {visibleFields.map((field) => (
+                  <TableCell key={field.code} className={field.renderer.classes} suppressHydrationWarning>
+                    {renderFieldInTable(transaction, field)}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell></TableCell>
+              {visibleFields.map((field) => (
+                <TableCell key={field.code} className={field.renderer.classes}>
+                  {field.renderer.footerValue ? field.renderer.footerValue(transactions, tList) : ""}
                 </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell></TableCell>
-            {visibleFields.map((field) => (
-              <TableCell key={field.code} className={field.renderer.classes}>
-                {field.renderer.footerValue ? field.renderer.footerValue(transactions, tList) : ""}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableFooter>
-      </Table>
+          </TableFooter>
+        </Table>
+      </div>
+
+      {/* Mobile View */}
+      <div className="flex flex-col gap-3 md:hidden p-3 bg-muted/10">
+        <div className="flex items-center justify-between pb-2 mb-1 border-b border-border">
+          <div className="flex items-center gap-2">
+            <Checkbox checked={selectedIds.length === transactions.length && transactions.length > 0} onCheckedChange={toggleAllRows} />
+            <span className="text-sm font-medium select-none">Tümünü Seç</span>
+          </div>
+          <span className="text-sm text-muted-foreground">{transactions.length} İşlem</span>
+        </div>
+        
+        <div className="flex flex-col gap-3">
+          {transactions.map((transaction) => {
+            const nameField = visibleFields.find(f => f.code === 'name')
+            const merchantField = visibleFields.find(f => f.code === 'merchant')
+            const categoryField = visibleFields.find(f => f.code === 'categoryCode')
+            const totalField = visibleFields.find(f => f.code === 'total')
+            const dateField = visibleFields.find(f => f.code === 'issuedAt')
+            
+            return (
+              <div
+                key={transaction.id}
+                onClick={() => handleRowClick(transaction.id)}
+                className={cn(
+                  "relative border rounded-lg p-4 flex flex-col gap-2 cursor-pointer shadow-sm bg-background transition-colors",
+                  isTransactionIncomplete(fields, transaction) && "border-yellow-300 bg-yellow-50 dark:bg-yellow-950/20",
+                  selectedIds.includes(transaction.id) && "ring-2 ring-primary border-primary",
+                  !selectedIds.includes(transaction.id) && "hover:border-primary/50"
+                )}
+              >
+                <div className="absolute top-4 right-4 z-10" onClick={(e) => e.stopPropagation()}>
+                  <Checkbox
+                    checked={selectedIds.includes(transaction.id)}
+                    onCheckedChange={(checked) => {
+                      if (checked !== "indeterminate") {
+                        toggleOneRow({ stopPropagation: () => {} } as React.MouseEvent, transaction.id)
+                      }
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col pr-8">
+                   <span className="font-semibold text-base line-clamp-1">{nameField ? renderFieldInTable(transaction, nameField) : (transaction.name || "-")}</span>
+                   <span className="text-sm text-muted-foreground line-clamp-1">{merchantField ? renderFieldInTable(transaction, merchantField) : (transaction.merchant || "-")}</span>
+                </div>
+                <div className="flex items-center justify-between mt-1">
+                   <div className="flex items-center gap-1 text-xs px-2 py-0.5 rounded text-muted-foreground">
+                      {categoryField ? renderFieldInTable(transaction, categoryField) : (transaction.categoryCode || "Bilinmiyor")}
+                   </div>
+                   <div className="font-medium text-lg text-right">{totalField ? renderFieldInTable(transaction, totalField) : transaction.total}</div>
+                </div>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground mt-2 pt-2 border-t border-border/50">
+                  <span className="flex items-center gap-1"><File className="w-3 h-3"/> {(transaction.files as string[])?.length || 0}</span>
+                  <span className="flex items-center gap-1">{dateField ? renderFieldInTable(transaction, dateField) : (transaction.issuedAt?.toString() || "-")}</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        
+        {transactions.length > 0 && (
+          <div className="mt-2 pt-4 border-t border-border flex flex-col items-end gap-2 pr-2">
+            {visibleFields.find(f => f.code === 'total')?.renderer.footerValue?.(transactions, tList)}
+          </div>
+        )}
+      </div>
+
       {selectedIds.length > 0 && (
         <BulkActionsMenu selectedIds={selectedIds} onActionComplete={() => setSelectedIds([])} />
       )}

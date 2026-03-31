@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/sidebar"
 import { UserProfile } from "@/lib/auth"
 import config from "@/lib/config"
-import { ClockArrowUp, FileText, Gift, House, Import, LayoutDashboard, Settings, Upload } from "lucide-react"
+import { ClockArrowUp, FileText, Gift, House, Import, LayoutDashboard, Settings, Upload, Repeat, Target } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -95,6 +95,24 @@ export function AppSidebar({
                         <Blinker />
                       )}
                       <span></span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItemWithHighlight>
+
+                <SidebarMenuItemWithHighlight href="/subscriptions">
+                  <SidebarMenuButton asChild>
+                    <Link href="/subscriptions">
+                      <Repeat />
+                      <span>{t("subscriptions") || "Abonelikler"}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItemWithHighlight>
+
+                <SidebarMenuItemWithHighlight href="/budgets">
+                  <SidebarMenuButton asChild>
+                    <Link href="/budgets">
+                      <Target />
+                      <span>{t("budgets") || "Bütçeler"}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItemWithHighlight>

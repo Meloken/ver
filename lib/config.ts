@@ -26,11 +26,11 @@ const env = envSchema.parse(process.env)
 
 const config = {
   app: {
-    title: "TaxHacker",
-    description: "Your personal AI accountant",
+    title: "Finans Asistanım",
+    description: "Kişisel AI Finans ve Muhasebe Uzmanınız",
     version: process.env.npm_package_version || "0.0.1",
     baseURL: env.BASE_URL || `http://localhost:${env.PORT || "7331"}`,
-    supportEmail: "me@vas3k.com",
+    supportEmail: "info@business.com",
   },
   upload: {
     acceptedMimeTypes: "image/*,.pdf,.doc,.docx,.xls,.xlsx",

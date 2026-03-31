@@ -29,6 +29,7 @@ import { SidebarMenuItemWithHighlight } from "./sidebar-item"
 import SidebarUser from "./sidebar-user"
 import { useTranslations } from "next-intl"
 import { LanguageSwitcher } from "@/components/ui/language-switcher"
+import { ThemeToggle } from "./theme-toggle"
 
 export function AppSidebar({
   profile,
@@ -54,10 +55,14 @@ export function AppSidebar({
       <Sidebar variant="inset" collapsible="icon">
         <SidebarHeader>
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo/256.png" alt="Logo" className="h-10 w-10 rounded-lg" width={40} height={40} />
+            {profile.businessLogo ? (
+              <img src={profile.businessLogo} alt="Logo" className="h-10 w-10 rounded-lg object-cover" />
+            ) : (
+              <Image src="/logo/256.png" alt="Logo" className="h-10 w-10 rounded-lg" width={40} height={40} />
+            )}
             <div className="grid flex-1 text-left leading-tight">
               <span className="truncate font-semibold text-lg">
-                <ColoredText>{config.app.title}</ColoredText>
+                <ColoredText>{profile.businessName || config.app.title}</ColoredText>
               </span>
             </div>
           </Link>
@@ -148,16 +153,13 @@ export function AppSidebar({
                       {open && <span>{t("language")}</span>}
                    </div>
                 </SidebarMenuItem>
-                {isSelfHosted && (
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="https://vas3k.com/donate/" target="_blank">
-                        <Gift />
-                        {t("thankAuthor")}
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )}
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <div>
+                      <ThemeToggle open={open} />
+                    </div>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
                 {!open && (
                   <SidebarMenuItem>
                     <SidebarTrigger />

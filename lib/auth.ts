@@ -20,6 +20,8 @@ export type UserProfile = {
   storageUsed: number
   storageLimit: number
   aiBalance: number
+  businessName?: string | null
+  businessLogo?: string | null
 }
 
 export const auth = betterAuth({

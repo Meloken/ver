@@ -27,14 +27,16 @@ export function ChartsWidget({ transactions }: ChartsWidgetProps) {
 
   // Kategori Bazlı Harcamalar (Sadece Giderler)
   const expenses = transactions.filter((t) => t.type === "expense" && t.convertedTotal)
-  const categoryData = Array.from(
-    expenses.reduce((acc, curr) => {
-      const cat = curr.category?.name || "Other"
-      acc.set(cat, (acc.get(cat) || 0) + curr.convertedTotal)
-      return acc
-    }, new Map<string, number>()).entries()
+  const categoryData = (
+    Array.from(
+      expenses.reduce((acc, curr) => {
+        const cat = curr.category?.name || "Other"
+        acc.set(cat, (acc.get(cat) || 0) + curr.convertedTotal)
+        return acc
+      }, new Map<string, number>()).entries()
+    ) as [string, number][]
   )
-    .map(([name, value]) => ({ name, value: value as number }))
+    .map(([name, value]) => ({ name, value }))
     .sort((a, b) => b.value - a.value)
     // take top 5
     .slice(0, 5)

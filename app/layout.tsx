@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | TaxHacker",
+    template: `%s | ${config.app.title}`,
     default: config.app.title,
   },
   description: config.app.description,

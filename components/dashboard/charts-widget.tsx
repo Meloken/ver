@@ -67,8 +67,8 @@ export function ChartsWidget({ transactions }: ChartsWidgetProps) {
       {/* Giderler Pasta Grafiği */}
       <Card>
         <CardHeader>
-          <CardTitle>Top Categories</CardTitle>
-          <CardDescription>Your highest expenses by category</CardDescription>
+          <CardTitle>{t("topCategories")}</CardTitle>
+          <CardDescription>{t("highestExpensesByCategory")}</CardDescription>
         </CardHeader>
         <CardContent className="h-[300px]">
           {categoryData.length > 0 ? (
@@ -93,7 +93,7 @@ export function ChartsWidget({ transactions }: ChartsWidgetProps) {
             </ResponsiveContainer>
           ) : (
             <div className="flex items-center justify-center h-full text-muted-foreground">
-              No data available
+              {t("noDataAvailable")}
             </div>
           )}
         </CardContent>
@@ -102,8 +102,8 @@ export function ChartsWidget({ transactions }: ChartsWidgetProps) {
       {/* Gelir / Gider Sütun Grafiği */}
       <Card>
         <CardHeader>
-          <CardTitle>Income vs Expense</CardTitle>
-          <CardDescription>Monthly cash flow</CardDescription>
+          <CardTitle>{t("incomeVsExpense")}</CardTitle>
+          <CardDescription>{t("monthlyCashFlow")}</CardDescription>
         </CardHeader>
         <CardContent className="h-[300px]">
           {monthlyData.length > 0 ? (
@@ -120,7 +120,7 @@ export function ChartsWidget({ transactions }: ChartsWidgetProps) {
             </ResponsiveContainer>
           ) : (
             <div className="flex items-center justify-center h-full text-muted-foreground">
-              No data available
+              {t("noDataAvailable")}
             </div>
           )}
         </CardContent>

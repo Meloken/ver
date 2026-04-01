@@ -45,7 +45,16 @@
     "totalExpenses": "Toplam Gider",
     "netProfit": "Net Kâr",
     "processedTransactions": "İşlenen İşlemler",
-    "projects": "Projeler"
+    "projects": "Projeler",
+    "income": "Gelir",
+    "expenses": "Gider",
+    "profit": "Kâr",
+    "createNewProject": "Yeni Proje Oluştur",
+    "topCategories": "En Çok Harcama Yapılan Kategoriler",
+    "highestExpensesByCategory": "Kategoriye göre en yüksek harcamalarınız",
+    "noDataAvailable": "Gösterilecek veri yok",
+    "incomeVsExpense": "Gelir ve Gider",
+    "monthlyCashFlow": "Aylık nakit akışı"
   },
   "Welcome": {
     "greeting": "Merhaba, ben TaxHacker 👋",

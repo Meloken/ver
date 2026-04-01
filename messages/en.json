@@ -45,7 +45,16 @@
     "totalExpenses": "Total Expenses",
     "netProfit": "Net Profit",
     "processedTransactions": "Processed Transactions",
-    "projects": "Projects"
+    "projects": "Projects",
+    "income": "Income",
+    "expenses": "Expenses",
+    "profit": "Profit",
+    "createNewProject": "Create New Project",
+    "topCategories": "Top Categories",
+    "highestExpensesByCategory": "Your highest expenses by category",
+    "noDataAvailable": "No data available",
+    "incomeVsExpense": "Income vs Expense",
+    "monthlyCashFlow": "Monthly cash flow"
   },
   "Welcome": {
     "greeting": "Hey, I'm TaxHacker 👋",

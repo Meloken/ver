@@ -15,6 +15,8 @@ import {
   DndContext,
   closestCenter,
   PointerSensor,
+  TouchSensor,
+  KeyboardSensor,
   useSensor,
   useSensors
 } from "@dnd-kit/core"
@@ -145,7 +147,11 @@ type DndProviderBlocksProps = {
 };
 
 function DndProviderBlocks({ providerOrder, setProviderOrder, providerValues, handleProviderValueChange }: DndProviderBlocksProps) {
-  const sensors = useSensors(useSensor(PointerSensor))
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor)
+  )
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
     if (!over || active.id === over.id) return
@@ -198,7 +204,7 @@ function SortableProviderBlock({ id, providerKey, value, handleValueChange }: So
         <span
           {...attributes}
           {...listeners}
-          className="cursor-grab p-1 rounded hover:bg-accent transition inline-flex items-center"
+          className="cursor-grab p-1 rounded hover:bg-accent transition inline-flex items-center touch-none"
           aria-label={t("dragToReorderShort")}
         >
           <GripVertical className="w-5 h-5 text-muted-foreground" />

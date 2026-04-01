@@ -46,8 +46,46 @@ model User {
   budgets             Budget[]
   customers           Customer[]
   invoices            Invoice[]
+  ownedWorkspaces     Workspace[]    @relation("OwnedWorkspaces")
+  workspaceMembers    WorkspaceMember[]
 
   @@map("users")
+}
+
+model Workspace {
+  id        String   @id @default(uuid())
+  name      String
+  ownerId   String   @map("owner_id")
+  owner     User     @relation("OwnedWorkspaces", fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  members        WorkspaceMember[]
+  transactions   Transaction[]
+  wallets        Wallet[]
+  categories     Category[]
+  projects       Project[]
+  vendors        Vendor[]
+  subscriptions  Subscription[]
+  budgets        Budget[]
+  invoices       Invoice[]
+  customers      Customer[]
+
+  @@map("workspaces")
+}
+
+model WorkspaceMember {
+  id          String    @id @default(uuid())
+  workspaceId String    @map("workspace_id")
+  userId      String    @map("user_id")
+  role        String    @default("member")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@map("workspace_members")
 }
 
 model Session {
@@ -112,6 +150,8 @@ model Category {
   id           String        @id @default(uuid())
   userId       String        @map("user_id")
   user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId  String?       @map("workspace_id")
+  workspace    Workspace?    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   code         String
   name         String
   color        String        @default("#000000")
@@ -127,6 +167,8 @@ model Project {
   id           String        @id @default(uuid())
   userId       String        @map("user_id")
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId  String?       @map("workspace_id")
+  workspace    Workspace?    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   code         String
   name         String
   color        String        @default("#000000")
@@ -142,6 +184,8 @@ model Wallet {
   id           String        @id @default(uuid())
   userId       String        @map("user_id")
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId  String?       @map("workspace_id")
+  workspace    Workspace?    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   code         String
   name         String
   currency     String        @default("TRY")
@@ -158,6 +202,8 @@ model Vendor {
   id           String        @id @default(uuid())
   userId       String        @map("user_id")
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId  String?       @map("workspace_id")
+  workspace    Workspace?    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   code         String
   name         String
   type         String        @default("supplier")
@@ -209,6 +255,8 @@ model Transaction {
   id                    String    @id @default(uuid())
   userId                String    @map("user_id")
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId           String?   @map("workspace_id")
+  workspace             Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   name                  String?
   description           String?
   merchant              String?
@@ -284,10 +332,13 @@ model Subscription {
   id           String    @id @default(uuid())
   userId       String    @map("user_id")
   user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId  String?   @map("workspace_id")
+  workspace    Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   name         String
   amount       Int
   currencyCode String    @map("currency_code")
   billingCycle String    @default("monthly") // monthly, yearly, weekly
+  category     Category? @relation(fields: [categoryCode, userId], references: [code, userId], onDelete: SetNull)
   categoryCode String?   @map("category_code") // Bağlı olduğu kategori (Opsiyonel)
   startDate    DateTime  @default(now()) @map("start_date")
   nextBilling  DateTime? @map("next_billing")
@@ -303,6 +354,9 @@ model Budget {
   id           String   @id @default(uuid())
   userId       String   @map("user_id")
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId  String?  @map("workspace_id")
+  workspace    Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  category     Category @relation(fields: [categoryCode, userId], references: [code, userId], onDelete: Cascade)
   categoryCode String   @map("category_code")
   amount       Int
   period       String   @default("monthly") // monthly, yearly
@@ -318,6 +372,8 @@ model Customer {
   id        String    @id @default(uuid())
   userId    String    @map("user_id")
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId String? @map("workspace_id")
+  workspace Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   name      String
   email     String?
   taxId     String?   @map("tax_id")
@@ -335,6 +391,8 @@ model Invoice {
   id            String    @id @default(uuid())
   userId        String    @map("user_id")
   user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId   String?   @map("workspace_id")
+  workspace     Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   customerId    String    @map("customer_id")
   customer      Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
   invoiceNumber String    @map("invoice_number")

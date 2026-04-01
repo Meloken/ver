@@ -53,9 +53,18 @@ export const transactionFormSchema = z
       .transform((val) => {
         if (!val || val.trim() === '') return []
         try {
-          return JSON.parse(val)
+          const parsed = JSON.parse(val)
+          const itemsSchema = z.array(
+            z.object({
+              description: z.string().optional(),
+              quantity: z.number().optional(),
+              price: z.number().optional(),
+              total: z.number().optional()
+            }).passthrough()
+          )
+          return itemsSchema.parse(parsed)
         } catch (e) {
-          throw new z.ZodError([{ message: "Invalid items JSON", path: ["items"], code: z.ZodIssueCode.custom }])
+          throw new z.ZodError([{ message: "Invalid items schema", path: ["items"], code: z.ZodIssueCode.custom }])
         }
       }),
   })

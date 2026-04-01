@@ -1,14 +1,19 @@
 import Link from "next/link"
 import { getApps } from "./common"
+import { getTranslations } from "next-intl/server"
+import { cookies } from "next/headers"
 
 export default async function AppsPage() {
   const apps = await getApps()
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  const t = await getTranslations({ locale, namespace: "Navigation" })
 
   return (
     <>
       <header className="flex flex-wrap items-center justify-between gap-2 mb-8">
         <h2 className="flex flex-row gap-3 md:gap-5">
-          <span className="text-3xl font-bold tracking-tight">Apps</span>
+          <span className="text-3xl font-bold tracking-tight">{t("apps")}</span>
           <span className="text-3xl tracking-tight opacity-20">{apps.length}</span>
         </h2>
       </header>

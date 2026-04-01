@@ -23,6 +23,8 @@ export default function TransactionCreateForm({
   projects,
   currencies,
   settings,
+  wallets,
+  vendors,
 }: {
   categories: Category[]
   projects: Project[]

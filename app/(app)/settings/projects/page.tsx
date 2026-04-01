@@ -16,17 +16,16 @@ export default async function ProjectsSettingsPage() {
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-2">Projects</h1>
+      <h1 className="text-2xl font-bold mb-2">Projeler / Şubeler</h1>
       <p className="text-sm text-gray-500 mb-6 max-w-prose">
-        Use projects to differentiate between the type of activities you do For example: Freelancing, YouTube channel,
-        Blogging. Projects are just a convenient way to separate statistics.
+        Projeler ekranını firmanızdaki farklı iş kolları veya şubeler (Örn: Şirinevler Şubesi, YouTube Gelirleri, E-Ticaret, Nakliye Pazarı vb.) için kullanarak fiş istatistiklerini birbirinden bağımsız ayırabilirsiniz. 
       </p>
       <CrudTable
         items={projectsWithActions}
         columns={[
-          { key: "name", label: "Name", editable: true },
-          { key: "llm_prompt", label: "LLM Prompt", editable: true },
-          { key: "color", label: "Color", type: "color", defaultValue: randomHexColor(), editable: true },
+          { key: "name", label: "İsim", editable: true },
+          { key: "llm_prompt", label: "LLM Komutu (Prompt)", editable: true },
+          { key: "color", label: "Renk Seç", type: "color", defaultValue: randomHexColor(), editable: true },
         ]}
         onDelete={async (code) => {
           "use server"

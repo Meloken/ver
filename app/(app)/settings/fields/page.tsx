@@ -15,42 +15,41 @@ export default async function FieldsSettingsPage() {
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-2">Custom Fields</h1>
+      <h1 className="text-2xl font-bold mb-2">Özel Alanlar</h1>
       <p className="text-sm text-gray-500 mb-6 max-w-prose">
-        You can add new fields to your transactions. Standard fields can&apos;t be removed but you can tweak their
-        prompts or hide them. If you don&apos;t want a field to be analyzed by AI but filled in by hand, leave the
-        &quot;LLM prompt&quot; empty.
+        İşlemlerinize yeni alanlar ekleyebilirsiniz. Standart alanlar kaldırılamaz ancak yapay zeka komutlarını düzenleyebilir veya gizleyebilirsiniz. 
+        Eğer bir alanın yapay zeka tarafından analiz edilmesini istemiyor ve elle doldurmayı tercih ediyorsanız, &quot;LLM Komutu&quot; kısmını boş bırakın.
       </p>
       <CrudTable
         items={fieldsWithActions}
         columns={[
-          { key: "name", label: "Name", editable: true },
+          { key: "name", label: "İsim (Name)", editable: true },
           {
             key: "type",
-            label: "Type",
+            label: "Veri Tipi",
             type: "select",
             options: ["string", "number", "boolean"],
             defaultValue: "string",
             editable: true,
           },
-          { key: "llm_prompt", label: "LLM Prompt", editable: true },
+          { key: "llm_prompt", label: "LLM Komutu (Prompt)", editable: true },
           {
             key: "isVisibleInList",
-            label: "Show in transactions table",
+            label: "Tabloda Göster",
             type: "checkbox",
             defaultValue: false,
             editable: true,
           },
           {
             key: "isVisibleInAnalysis",
-            label: "Show in analysis form",
+            label: "Analiz Formunda Göster",
             type: "checkbox",
             defaultValue: false,
             editable: true,
           },
           {
             key: "isRequired",
-            label: "Is required",
+            label: "Zorunlu",
             type: "checkbox",
             defaultValue: false,
             editable: true,

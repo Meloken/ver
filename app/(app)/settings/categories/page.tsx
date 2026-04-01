@@ -16,18 +16,17 @@ export default async function CategoriesSettingsPage() {
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-2">Categories</h1>
+      <h1 className="text-2xl font-bold mb-2">Kategoriler</h1>
       <p className="text-sm text-gray-500 mb-6 max-w-prose">
-        Create your own categories that better reflect the type of income and expenses you have. Define an LLM Prompt so
-        that AI can determine this category automatically.
+        İhtiyaçlarınıza uygun gelir ve gider kategorileri (Örn: Mutfak, Ofis, Akaryakıt) oluşturabilirsiniz. Eğer bir kategorinin yapay zeka tarafından otomatik eşleştirilmesini isterseniz, &apos;LLM Komutu&apos; satırına yapay zekaya açık talimatlar yazabilirsiniz.
       </p>
 
       <CrudTable
         items={categoriesWithActions}
         columns={[
-          { key: "name", label: "Name", editable: true },
-          { key: "llm_prompt", label: "LLM Prompt", editable: true },
-          { key: "color", label: "Color", type: "color", defaultValue: randomHexColor(), editable: true },
+          { key: "name", label: "İsim", editable: true },
+          { key: "llm_prompt", label: "LLM Komutu (Prompt)", editable: true },
+          { key: "color", label: "Renk Seç", type: "color", defaultValue: randomHexColor(), editable: true },
         ]}
         onDelete={async (code) => {
           "use server"

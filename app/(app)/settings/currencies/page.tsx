@@ -14,15 +14,15 @@ export default async function CurrenciesSettingsPage() {
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-2">Currencies</h1>
+      <h1 className="text-2xl font-bold mb-2">Para Birimleri</h1>
       <p className="text-sm text-gray-500 mb-6 max-w-prose">
-        Custom currencies would not be automatically converted but you still can have them.
+        Yapay zeka tarafından çevrimi desteklenmeyen yerel/özel para birimlerini veya kripto paraları (Örn: ADA, Kuruş) buraya ekleyerek işlemlerinizde kolayca kullanabilirsiniz.
       </p>
       <CrudTable
         items={currenciesWithActions}
         columns={[
-          { key: "code", label: "Code", editable: true },
-          { key: "name", label: "Name", editable: true },
+          { key: "code", label: "Kod (Örn: USD)", editable: true },
+          { key: "name", label: "İsim / Temsil", editable: true },
         ]}
         onDelete={async (code) => {
           "use server"

@@ -205,7 +205,9 @@
     "vatRate": "VAT Rate",
     "vatAmount": "VAT Amount",
     "convertedTotal": "Converted Total",
-    "convertedCurrencyCode": "Converted Currency Code"
+    "convertedCurrencyCode": "Converted Currency Code",
+    "files": "Files",
+    "text": "Extracted Text"
   },
   "ImportCSV": {
     "uploadDescription": "Upload your CSV file to import transactions",

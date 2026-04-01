@@ -205,7 +205,9 @@
     "vatRate": "KDV Oranı",
     "vatAmount": "KDV Tutarı",
     "convertedTotal": "Çevrilen Tutar",
-    "convertedCurrencyCode": "Dönüştürülen Birim"
+    "convertedCurrencyCode": "Dönüştürülen Birim",
+    "files": "Dosyalar",
+    "text": "Dosya Metni"
   },
   "ImportCSV": {
     "uploadDescription": "İşlemleri içe aktarmak için CSV dosyanızı yükleyin",

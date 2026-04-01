@@ -43,6 +43,7 @@ export function ExportTransactionsDialog({
   )
   const [includeAttachments, setIncludeAttachments] = useState(true)
   const t = useTranslations("Export")
+  const tFields = useTranslations("Fields")
   const { isLoading, startProgress, progress } = useProgress({
     onError: (error) => {
       console.error("Export progress error:", error)
@@ -155,7 +156,9 @@ export function ExportTransactionsDialog({
                       )
                     }
                   />
-                  <span>{field.name}</span>
+                  <span>
+                    {["name", "merchant", "description", "total", "currencyCode", "type", "issuedAt", "categoryCode", "projectCode", "note", "vat_rate", "vat", "convertedTotal", "convertedCurrencyCode", "files", "text"].includes(field.code) ? tFields(field.code as any) : field.name}
+                  </span>
                 </label>
               </div>
             ))}

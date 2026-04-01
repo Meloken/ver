@@ -62,7 +62,7 @@ export function WalletList({ wallets }: { wallets: Wallet[] }) {
             </CardHeader>
             <CardContent className="pt-4">
               <div className="text-2xl font-bold text-primary">
-                {formatCurrency(wallet.balance, wallet.currency)}
+                {formatCurrency(wallet.balance / 100, wallet.currency)}
               </div>
               <p className="text-xs text-muted-foreground mt-1 text-uppercase">Birim: {wallet.currency}</p>
             </CardContent>

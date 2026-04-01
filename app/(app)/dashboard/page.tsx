@@ -32,6 +32,22 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     getBudgets(user.id)
   ])
 
+  const isFirstTimeUser = transactionsData.total === 0 && unsortedFiles.length === 0
+
+  if (isFirstTimeUser) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-6 p-10 w-full max-w-4xl self-center min-h-[60vh] text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight">TaxHacker'a Hoş Geldiniz! 🚀</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Yapay Zeka'nın (AI) sihrini görmek ve nasıl çalıştığını keşfetmek için vakit kaybetmeyelim. Ayarları sonra yaparsınız!
+        </p>
+        <div className="w-full mt-8 p-8 border-4 border-dashed border-primary/50 rounded-3xl bg-primary/5 hover:bg-primary/10 transition">
+          <DashboardDropZoneWidget />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-5 p-5 w-full max-w-7xl self-center">
       <div className="flex flex-col sm:flex-row gap-5 items-stretch">
@@ -55,4 +71,5 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     </div>
   )
 }
+
 

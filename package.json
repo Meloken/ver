@@ -7,7 +7,8 @@
     "dev": "next dev -p 7331 --turbopack",
     "build": "next build",
     "start": "prisma migrate deploy && next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.42.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -145,7 +145,7 @@ model Wallet {
   code         String
   name         String
   currency     String        @default("TRY")
-  balance      Float         @default(0)
+  balance      Int           @default(0)
   transactions Transaction[]
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
@@ -161,7 +161,7 @@ model Vendor {
   code         String
   name         String
   type         String        @default("supplier")
-  balance      Float         @default(0)
+  balance      Int           @default(0)
   transactions Transaction[]
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
@@ -285,7 +285,7 @@ model Subscription {
   userId       String    @map("user_id")
   user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   name         String
-  amount       Float
+  amount       Int
   currencyCode String    @map("currency_code")
   billingCycle String    @default("monthly") // monthly, yearly, weekly
   categoryCode String?   @map("category_code") // Bağlı olduğu kategori (Opsiyonel)
@@ -304,7 +304,7 @@ model Budget {
   userId       String   @map("user_id")
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   categoryCode String   @map("category_code")
-  amount       Float
+  amount       Int
   period       String   @default("monthly") // monthly, yearly
   startDate    DateTime @default(now()) @map("start_date")
   createdAt    DateTime @default(now()) @map("created_at")
@@ -341,7 +341,7 @@ model Invoice {
   issueDate     DateTime  @default(now()) @map("issue_date")
   dueDate       DateTime? @map("due_date")
   status        String    @default("draft") // draft, sent, paid, overdue
-  total         Float     @default(0)
+  total         Int       @default(0)
   currencyCode  String    @default("USD") @map("currency_code")
   items         Json      @default("[]") // Array of { description, quantity, price, total }
   notes         String?

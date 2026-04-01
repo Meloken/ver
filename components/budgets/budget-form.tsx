@@ -68,7 +68,7 @@ export function BudgetForm({
             
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="amount" className="text-right">Hedef Limit</Label>
-              <Input id="amount" name="amount" type="number" step="0.01" defaultValue={budget?.amount || ""} className="col-span-3" required />
+              <Input id="amount" name="amount" type="number" step="0.01" defaultValue={budget ? (budget.amount / 100).toString() : ""} className="col-span-3" required />
             </div>
 
             <div className="grid grid-cols-4 items-center gap-4">

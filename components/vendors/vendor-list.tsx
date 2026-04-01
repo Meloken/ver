@@ -65,7 +65,7 @@ export function VendorList({ vendors }: { vendors: Vendor[] }) {
                   {isCustomer ? "Müşteri (Alacak)" : "Tedarikçi (Borç)"}
                 </div>
                 <div className={`text-2xl font-bold ${vendor.balance < 0 ? 'text-red-500' : 'text-primary'}`}>
-                  {formatCurrency(vendor.balance, "TRY")}
+                  {formatCurrency(vendor.balance / 100, "TRY")}
                 </div>
               </CardContent>
             </Card>

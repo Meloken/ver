@@ -60,7 +60,7 @@ export function SubscriptionForm({
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="amount" className="text-right">Tutar</Label>
-              <Input id="amount" name="amount" type="number" step="0.01" defaultValue={subscription?.amount || ""} className="col-span-3" required />
+              <Input id="amount" name="amount" type="number" step="0.01" defaultValue={subscription ? (subscription.amount / 100).toString() : ""} className="col-span-3" required />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="currencyCode" className="text-right">Birim</Label>

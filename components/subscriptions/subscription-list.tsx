@@ -63,7 +63,7 @@ export function SubscriptionList({ subscriptions, categories, currencies }: Subs
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{formatCurrency(sub.amount, sub.currencyCode)} <span className="text-sm font-normal text-muted-foreground">/{sub.billingCycle === "monthly" ? "ay" : sub.billingCycle === "yearly" ? "yıl" : "hafta"}</span></div>
+              <div className="text-2xl font-bold">{formatCurrency(sub.amount / 100, sub.currencyCode)} <span className="text-sm font-normal text-muted-foreground">/{sub.billingCycle === "monthly" ? "ay" : sub.billingCycle === "yearly" ? "yıl" : "hafta"}</span></div>
               <div className="text-sm text-muted-foreground mt-2">
                 Kategori: {categories.find(c => c.code === sub.categoryCode)?.name || "Kategori Yok"}
               </div>

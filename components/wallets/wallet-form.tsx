@@ -77,7 +77,7 @@ export function WalletForm({ wallet, open, onOpenChange }: WalletFormProps) {
 
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="balance" className="text-right">Açılış Bakiyesi</Label>
-              <Input id="balance" name="balance" type="number" step="0.01" defaultValue={wallet?.balance || "0"} className="col-span-3" required />
+              <Input id="balance" name="balance" type="number" step="0.01" defaultValue={wallet ? (wallet.balance / 100).toString() : "0"} className="col-span-3" required />
             </div>
           </div>
           {state?.error && <FormError>{state.error}</FormError>}

@@ -103,8 +103,8 @@ export function BudgetList({ budgets, categories, transactions, defaultCurrency 
               <CardContent>
                 <div className="flex justify-between items-center text-sm mb-1 mt-2">
                   <div>
-                    <span className="font-semibold text-lg">{formatCurrency(spent, defaultCurrency)}</span>
-                    <span className="text-muted-foreground ml-1">/ {formatCurrency(budget.amount, defaultCurrency)}</span>
+                    <span className="font-semibold text-lg">{formatCurrency(spent / 100, defaultCurrency)}</span>
+                    <span className="text-muted-foreground ml-1">/ {formatCurrency(budget.amount / 100, defaultCurrency)}</span>
                     <span className="text-xs ml-2 text-muted-foreground">({budget.period === "monthly" ? "Aylık" : "Yıllık"})</span>
                   </div>
                 </div>

@@ -153,7 +153,11 @@
     "no": "No",
     "convertTo": "Convert to",
     "clearFilters": "Clear all filters",
-    "selectDates": "Select dates"
+    "selectDates": "Select dates",
+    "expense": "Expense",
+    "income": "Income",
+    "pending": "Pending",
+    "other": "Other"
   },
   "DatePicker": {
     "last4weeks": "Last 4 weeks",

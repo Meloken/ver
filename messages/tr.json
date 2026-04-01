@@ -153,7 +153,11 @@
     "no": "Hayır",
     "convertTo": "Dönüştür",
     "clearFilters": "Tüm filtreleri temizle",
-    "selectDates": "Tarih seçin"
+    "selectDates": "Tarih seçin",
+    "expense": "Gider",
+    "income": "Gelir",
+    "pending": "Bekliyor",
+    "other": "Diğer"
   },
   "DatePicker": {
     "last4weeks": "Son 4 hafta",

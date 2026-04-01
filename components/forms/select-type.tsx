@@ -1,4 +1,7 @@
+"use client"
+
 import { SelectProps } from "@radix-ui/react-select"
+import { useTranslations } from "next-intl"
 import { FormSelect } from "./simple"
 
 export const FormSelectType = ({
@@ -15,11 +18,12 @@ export const FormSelectType = ({
   hideIfEmpty?: boolean
   isRequired?: boolean
 } & SelectProps) => {
+  const t = useTranslations("Common")
   const items = [
-    { code: "expense", name: "Expense", badge: "↓" },
-    { code: "income", name: "Income", badge: "↑" },
-    { code: "pending", name: "Pending", badge: "⏲︎" },
-    { code: "other", name: "Other", badge: "?" },
+    { code: "expense", name: t("expense", { fallback: "Gider" }), badge: "↓" },
+    { code: "income", name: t("income", { fallback: "Gelir" }), badge: "↑" },
+    { code: "pending", name: t("pending", { fallback: "Bekliyor" }), badge: "⏲︎" },
+    { code: "other", name: t("other", { fallback: "Diğer" }), badge: "?" },
   ]
 
   return (

@@ -212,7 +212,7 @@ export default function TransactionEditForm({
           <FormInput
             key={field.code}
             type="text"
-            title={field.code === "vatRate" || field.code === "vatAmount" ? tFields(field.code as any) : field.name}
+            title={field.code === "vat_rate" ? tFields("vatRate") : field.code === "vat" ? tFields("vatAmount") : field.name}
             name={field.code}
             defaultValue={(formData[field.code as keyof typeof formData] as string) || ""}
             isRequired={field.isRequired}

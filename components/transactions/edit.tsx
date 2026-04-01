@@ -38,6 +38,8 @@ export default function TransactionEditForm({
   const [saveState, saveAction, isSaving] = useActionState(saveTransactionAction, null)
   const t = useTranslations("Transactions")
   const tCommon = useTranslations("Common")
+  const tFields = useTranslations("Fields")
+  const tCreate = useTranslations("CreateTransaction")
 
   const extraFields = fields.filter((field) => field.isExtra)
   const [formData, setFormData] = useState({
@@ -93,21 +95,21 @@ export default function TransactionEditForm({
       <input type="hidden" name="transactionId" value={transaction.id} />
 
       <FormInput
-        title={fieldMap.name.name}
+        title={tFields("name")}
         name="name"
         defaultValue={formData.name}
         isRequired={fieldMap.name.isRequired}
       />
 
       <FormInput
-        title={fieldMap.merchant.name}
+        title={tFields("merchant")}
         name="merchant"
         defaultValue={formData.merchant}
         isRequired={fieldMap.merchant.isRequired}
       />
 
       <FormInput
-        title={fieldMap.description.name}
+        title={tFields("description")}
         name="description"
         defaultValue={formData.description}
         isRequired={fieldMap.description.isRequired}
@@ -115,7 +117,7 @@ export default function TransactionEditForm({
 
       <div className="flex flex-row gap-4">
         <FormInput
-          title={fieldMap.total.name}
+          title={tFields("total")}
           type="number"
           step="0.01"
           name="total"
@@ -125,7 +127,7 @@ export default function TransactionEditForm({
         />
 
         <FormSelectCurrency
-          title={fieldMap.currencyCode.name}
+          title={tFields("currencyCode")}
           name="currencyCode"
           value={formData.currencyCode}
           onValueChange={(value) => {
@@ -136,7 +138,7 @@ export default function TransactionEditForm({
         />
 
         <FormSelectType
-          title={fieldMap.type.name}
+          title={tFields("type")}
           name="type"
           defaultValue={formData.type}
           isRequired={fieldMap.type.isRequired}
@@ -145,7 +147,7 @@ export default function TransactionEditForm({
 
       <div className="flex flex-row flex-grow gap-4">
         <FormInput
-          title={fieldMap.issuedAt.name}
+          title={tFields("issuedAt")}
           type="date"
           name="issuedAt"
           defaultValue={formData.issuedAt}
@@ -155,7 +157,7 @@ export default function TransactionEditForm({
           <>
             {formData.convertedTotal !== null && (
               <FormInput
-                title={`Total converted to ${formData.convertedCurrencyCode || "UNKNOWN CURRENCY"}`}
+                title={tCreate("convertedTo", { currency: formData.convertedCurrencyCode || "UNKNOWN CURRENCY" })}
                 type="number"
                 step="0.01"
                 name="convertedTotal"
@@ -181,7 +183,7 @@ export default function TransactionEditForm({
 
       <div className="flex flex-row gap-4">
         <FormSelectCategory
-          title={fieldMap.categoryCode.name}
+          title={tFields("categoryCode")}
           categories={categories}
           name="categoryCode"
           defaultValue={formData.categoryCode}
@@ -189,7 +191,7 @@ export default function TransactionEditForm({
         />
 
         <FormSelectProject
-          title={fieldMap.projectCode.name}
+          title={tFields("projectCode")}
           projects={projects}
           name="projectCode"
           defaultValue={formData.projectCode}
@@ -198,7 +200,7 @@ export default function TransactionEditForm({
       </div>
 
       <FormTextarea
-        title={fieldMap.note.name}
+        title={tFields("note")}
         name="note"
         defaultValue={formData.note}
         className="h-24"
@@ -210,7 +212,7 @@ export default function TransactionEditForm({
           <FormInput
             key={field.code}
             type="text"
-            title={field.name}
+            title={field.code === "vatRate" || field.code === "vatAmount" ? tFields(field.code as any) : field.name}
             name={field.code}
             defaultValue={(formData[field.code as keyof typeof formData] as string) || ""}
             isRequired={field.isRequired}
@@ -220,7 +222,7 @@ export default function TransactionEditForm({
       </div>
 
       {formData.items && Array.isArray(formData.items) && formData.items.length > 0 && (
-        <ToolWindow title="Detected items">
+        <ToolWindow title={t("detectedItems")}>
           <ItemsDetectTool data={formData as TransactionData} />
         </ToolWindow>
       )}

@@ -23,6 +23,8 @@
     "analyzeInvoice": "Yeni Fatura Analiz Et",
     "emptyState": "Henüz hiç işleminiz yok. Hadi ilk işlemi oluşturarak başlayalım!",
     "newTransaction": "Yeni İşlem",
+    "detailsTitle": "İşlem Detayları",
+    "detectedItems": "Algılanan Kalemler",
     "saveTransaction": "İşlemi Kaydet",
     "deleteTransaction": "Sil",
     "deleting": "⏳ Siliniyor...",
@@ -188,6 +190,22 @@
     "total": "Tutar",
     "convertedTotal": "Çevrilen Tutar",
     "currencyCode": "Birim"
+  },
+  "Fields": {
+    "name": "İsim",
+    "merchant": "Firma / Satıcı",
+    "description": "Açıklama",
+    "total": "Toplam",
+    "currencyCode": "Para Birimi",
+    "type": "Tür",
+    "issuedAt": "Tarih",
+    "categoryCode": "Kategori",
+    "projectCode": "Proje",
+    "note": "Not",
+    "vatRate": "KDV Oranı",
+    "vatAmount": "KDV Tutarı",
+    "convertedTotal": "Çevrilen Tutar",
+    "convertedCurrencyCode": "Dönüştürülen Birim"
   },
   "ImportCSV": {
     "uploadDescription": "İşlemleri içe aktarmak için CSV dosyanızı yükleyin",

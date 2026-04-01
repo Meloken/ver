@@ -23,6 +23,8 @@
     "analyzeInvoice": "Analyze New Invoice",
     "emptyState": "You don't seem to have any transactions yet. Let's start and create the first one!",
     "newTransaction": "New Transaction",
+    "detailsTitle": "Transaction Details",
+    "detectedItems": "Detected items",
     "saveTransaction": "Save Transaction",
     "deleteTransaction": "Delete",
     "deleting": "⏳ Deleting...",
@@ -188,6 +190,22 @@
     "total": "Total",
     "convertedTotal": "Converted",
     "currencyCode": "Currency"
+  },
+  "Fields": {
+    "name": "Name",
+    "merchant": "Merchant",
+    "description": "Description",
+    "total": "Total",
+    "currencyCode": "Currency",
+    "type": "Type",
+    "issuedAt": "Issued At",
+    "categoryCode": "Category",
+    "projectCode": "Project",
+    "note": "Note",
+    "vatRate": "VAT Rate",
+    "vatAmount": "VAT Amount",
+    "convertedTotal": "Converted Total",
+    "convertedCurrencyCode": "Converted Currency Code"
   },
   "ImportCSV": {
     "uploadDescription": "Upload your CSV file to import transactions",

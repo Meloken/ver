@@ -10,7 +10,7 @@ import Link from "next/link"
 export default function DashboardUnsortedWidget({ files }: { files: File[] }) {
   const t = useTranslations("Dashboard")
   return (
-    <Card className="w-full h-full sm:max-w-xs bg-accent">
+    <Card className="w-full sm:max-w-xs bg-accent flex flex-col">
       <CardHeader>
         <CardTitle>
           <Link href="/unsorted">
@@ -18,8 +18,8 @@ export default function DashboardUnsortedWidget({ files }: { files: File[] }) {
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-2">
+      <CardContent className="flex-1 flex flex-col">
+        <div className="flex flex-col gap-2 flex-1">
           {files.slice(0, 3).map((file) => (
             <Link
               href={`/unsorted/#${file.id}`}
@@ -35,8 +35,8 @@ export default function DashboardUnsortedWidget({ files }: { files: File[] }) {
               </div>
             </Link>
           ))}
-          {files.length == 0 && (
-            <div className="flex flex-col items-center justify-center gap-2 text-sm h-full min-h-[100px] opacity-30">
+          {files.length === 0 && (
+            <div className="flex flex-col flex-1 items-center justify-center gap-2 text-sm min-h-[100px] opacity-30">
               <Cake className="w-8 h-8" />
             </div>
           )}

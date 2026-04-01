@@ -44,8 +44,8 @@ export default function DashboardDropZoneWidget() {
   }
 
   return (
-    <div className="flex w-full h-full">
-      <label className="relative w-full h-full border-2 border-dashed rounded-lg transition-colors hover:border-primary cursor-pointer">
+    <div className="flex flex-col flex-1 w-full">
+      <label className="relative flex-1 flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-colors hover:border-primary cursor-pointer min-h-[200px]">
         <input
           type="file"
           id="fileInput"
@@ -54,7 +54,7 @@ export default function DashboardDropZoneWidget() {
           accept={config.upload.acceptedMimeTypes}
           onChange={handleFileChange}
         />
-        <div className="flex flex-col items-center justify-center gap-4 p-8 text-center h-full">
+        <div className="flex flex-col flex-1 items-center justify-center gap-4 p-8 text-center">
           {isUploading ? (
             <Loader2 className="h-8 w-8 text-muted-foreground animate-spin" />
           ) : (

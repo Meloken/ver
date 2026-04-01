@@ -59,49 +59,29 @@ export const DEFAULT_SETTINGS = [
 ]
 
 export const DEFAULT_CATEGORIES = [
-  {
-    code: "ads",
-    name: "Advertisement",
-    color: "#882727",
-    llm_prompt: "ads, promos, online ads, etc",
-  },
-  {
-    code: "swag",
-    name: "Swag and Goods",
-    color: "#882727",
-    llm_prompt: "swag, stickers, goods, etc",
-  },
-  { code: "donations", name: "Gifts and Donations", color: "#1e6359", llm_prompt: "donations, gifts, charity" },
-  { code: "tools", name: "Equipment and Tools", color: "#c69713", llm_prompt: "equipment, tools" },
-  { code: "events", name: "Events and Conferences", color: "#ff8b32", llm_prompt: "events, conferences" },
-  { code: "food", name: "Food and Drinks", color: "#d40e70", llm_prompt: "food, drinks, business meals" },
-  { code: "insurance", name: "Insurance", color: "#050942", llm_prompt: "insurance, health, life" },
-  { code: "invoice", name: "Invoice", color: "#064e85", llm_prompt: "custom invoice, bill" },
-  { code: "communication", name: "Mobile and Internet", color: "#0e7d86", llm_prompt: "mobile, internet, phone" },
-  { code: "office", name: "Office Supplies", color: "#59b0b9", llm_prompt: "office, supplies, stationery" },
-  { code: "online", name: "Online Services", color: "#8753fb", llm_prompt: "online services, saas, subscriptions" },
-  { code: "rental", name: "Rental", color: "#050942", llm_prompt: "rental, lease" },
-  {
-    code: "education",
-    name: "Education",
-    color: "#ee5d6c",
-    llm_prompt: "education, professional development, trainings",
-  },
-  { code: "salary", name: "Salary", color: "#ce4993", llm_prompt: "salary, wages, etc" },
-  { code: "fees", name: "Fees", color: "#6a0d83", llm_prompt: "fees, charges, penalties, etc" },
-  { code: "travel", name: "Travel Expenses", color: "#fb9062", llm_prompt: "travel, accommodation, etc" },
-  { code: "utility_bills", name: "Utility Bills", color: "#af7e2e", llm_prompt: "bills, electricity, water, etc" },
-  {
-    code: "transport",
-    name: "Transport",
-    color: "#800000",
-    llm_prompt: "transportation costs, fuel, car rental, vignettes, etc",
-  },
-  { code: "software", name: "Software", color: "#2b5a1d", llm_prompt: "software, licenses" },
-  { code: "other", name: "Other", color: "#121216", llm_prompt: "other, miscellaneous," },
+  { code: "ads", name: "Reklam", color: "#882727", llm_prompt: "reklam, promosyon, dijital pazarlama, sponsorluk" },
+  { code: "swag", name: "Promosyon ve Eşantiyon", color: "#882727", llm_prompt: "promosyon ürünleri, etiketler, eşantiyon, vb." },
+  { code: "donations", name: "Bağış ve Hediyeler", color: "#1e6359", llm_prompt: "bağış, hediye, sadaka, yardım" },
+  { code: "tools", name: "Ekipman ve Araç Gereç", color: "#c69713", llm_prompt: "ekipman, hırdavat, ufak aletler" },
+  { code: "events", name: "Etkinlik ve Konferans", color: "#ff8b32", llm_prompt: "etkinlik, konferans, fuar katılımları" },
+  { code: "food", name: "Yemek ve İçecek", color: "#d40e70", llm_prompt: "yemek, içecek, restoran, cafe, pastane, iş yemeği, mutfak erzağı, gıda" },
+  { code: "insurance", name: "Sigorta", color: "#050942", llm_prompt: "sigorta, kasko, dask, sağlık sigortası, hayat" },
+  { code: "invoice", name: "Fatura", color: "#064e85", llm_prompt: "fatura, genel gider fişi, makbuz" },
+  { code: "communication", name: "Mobil ve İnternet", color: "#0e7d86", llm_prompt: "mobil hat, internet aboneliği, telefon faturası, telekomünikasyon" },
+  { code: "office", name: "Ofis Kırtasiye", color: "#59b0b9", llm_prompt: "ofis sarf malzemeleri, kırtasiye, kağıt, kartuş, temizlik" },
+  { code: "online", name: "Dijital Servisler", color: "#8753fb", llm_prompt: "dijital servisler, yazılım hizmetleri, saas, bulut uygulamaları" },
+  { code: "rental", name: "Kira", color: "#050942", llm_prompt: "ofis kirası, depo kirası, kiralama bedeli" },
+  { code: "education", name: "Eğitim", color: "#ee5d6c", llm_prompt: "eğitim, kurs, mesleki gelişim etkinlikleri, seminer, kitap" },
+  { code: "salary", name: "Maaş", color: "#ce4993", llm_prompt: "maaş ödemesi, personel avansı, çalışan nakit ödemeleri" },
+  { code: "fees", name: "Harç ve Komisyon", color: "#6a0d83", llm_prompt: "harç, noter, işlem ücreti, komisyon, havale eft kesintisi, vergi, ceza" },
+  { code: "travel", name: "Seyahat ve Konaklama", color: "#fb9062", llm_prompt: "seyahat, uçak biletleri, otobüs, otel konaklama bedeli, vize" },
+  { code: "utility_bills", name: "Faturalar (Elektrik, Su vb)", color: "#af7e2e", llm_prompt: "elektrik, su, doğalgaz, aidat, ısıtma soğutma, çöp vergisi, çevre idareleri vb" },
+  { code: "transport", name: "Ulaşım ve Akaryakıt", color: "#800000", llm_prompt: "ulaşım bedeli, taşıt, toplu taşıma kartları, akaryakıt, benzin, mazot, lpg, taksi, otopark, köprü, otoban, kargo" },
+  { code: "software", name: "Yazılım / Lisans", color: "#2b5a1d", llm_prompt: "yazılım satın alımı, paket lisans, yıllık uygulama abonelikleri" },
+  { code: "other", name: "Diğer", color: "#121216", llm_prompt: "diğer işlemler, muhtelif gider, belirsiz fişler, sınıflandırılamayanlar, bilinmeyen" },
 ]
 
-export const DEFAULT_PROJECTS = [{ code: "personal", name: "Personal", llm_prompt: "personal", color: "#1e202b" }]
+export const DEFAULT_PROJECTS = [{ code: "personal", name: "Kişisel", llm_prompt: "kişisel harcamalar", color: "#1e202b" }]
 
 export const DEFAULT_CURRENCIES = [
   { code: "USD", name: "$" },

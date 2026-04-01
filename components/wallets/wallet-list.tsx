@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Wallet } from "@/prisma/client"
-import { PlusCircle, Edit, Trash2, Landmark, CreditCard, Wallet3 } from "lucide-react"
+import { PlusCircle, Edit, Trash2, Landmark, CreditCard, Wallet as WalletIcon } from "lucide-react"
 import { useState } from "react"
 import { WalletForm } from "./wallet-form"
 import { deleteWalletAction } from "@/app/(app)/wallets/actions"
@@ -52,7 +52,7 @@ export function WalletList({ wallets }: { wallets: Wallet[] }) {
               <div className="flex items-center gap-2">
                 {wallet.name.toLowerCase().includes("kredi") ? <CreditCard className="w-5 h-5 text-indigo-500" /> : 
                  wallet.name.toLowerCase().includes("bank") ? <Landmark className="w-5 h-5 text-emerald-500" /> : 
-                 <Wallet3 className="w-5 h-5 text-amber-600" />}
+                 <WalletIcon className="w-5 h-5 text-amber-600" />}
                 <CardTitle className="text-lg font-medium">{wallet.name}</CardTitle>
               </div>
               <div className="flex gap-2 text-muted-foreground z-20 opacity-0 group-hover:opacity-100 transition-opacity">

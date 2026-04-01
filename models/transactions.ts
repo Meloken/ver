@@ -206,6 +206,12 @@ const splitTransactionDataExtraFields = async (
   const extra: Record<string, unknown> = {}
 
   Object.entries(data).forEach(([key, value]) => {
+    // Explicit bypass for non-dynamic core relation fields
+    if (key === 'walletCode' || key === 'vendorCode' || key === 'categoryCode' || key === 'projectCode') {
+       standard[key] = value
+       return
+    }
+
     const fieldDef = fieldMap[key]
     if (fieldDef) {
       if (fieldDef.isExtra) {
@@ -215,6 +221,10 @@ const splitTransactionDataExtraFields = async (
       }
     }
   })
+
+  // Normalize "none" values from dropdowns to null
+  if (standard.walletCode === "none") standard.walletCode = null
+  if (standard.vendorCode === "none") standard.vendorCode = null
 
   return { standard, extra: extra as Prisma.InputJsonValue }
 }

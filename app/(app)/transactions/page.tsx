@@ -1,4 +1,5 @@
 import { ExportTransactionsDialog } from "@/components/export/transactions"
+import { SendToAccountantDialog } from "@/components/export/send-to-accountant"
 import { UploadButton } from "@/components/files/upload-button"
 import { TransactionSearchAndFilters } from "@/components/transactions/filters"
 import { TransactionList } from "@/components/transactions/list"
@@ -10,7 +11,7 @@ import { getCategories } from "@/models/categories"
 import { getFields } from "@/models/fields"
 import { getProjects } from "@/models/projects"
 import { getTransactions, TransactionFilters } from "@/models/transactions"
-import { Download, Plus, Upload } from "lucide-react"
+import { Download, Plus, Upload, Mail } from "lucide-react"
 import { Metadata } from "next"
 import { redirect } from "next/navigation"
 
@@ -55,8 +56,11 @@ export default async function TransactionsPage({ searchParams }: { searchParams:
           <span className="text-3xl tracking-tight opacity-20">{total}</span>
         </h2>
         <div className="flex gap-2">
+          <SendToAccountantDialog>
+            <Mail className="w-4 h-4" /> <span className="hidden md:block">Müşavire Paketle</span>
+          </SendToAccountantDialog>
           <ExportTransactionsDialog fields={fields} categories={categories} projects={projects} total={total}>
-            <Download /> <span className="hidden md:block">{t("export")}</span>
+            <Download className="w-4 h-4" /> <span className="hidden md:block">{t("export")}</span>
           </ExportTransactionsDialog>
           <NewTransactionDialog>
             <Plus /> <span className="hidden md:block">{t("addTransaction")}</span>

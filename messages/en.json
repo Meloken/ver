@@ -11,7 +11,9 @@
     "thankAuthor": "Thank the author",
     "language": "Language",
     "subscriptions": "Subscriptions",
-    "budgets": "Budgets"
+    "budgets": "Budgets",
+    "wallets": "Wallets & Accounts",
+    "vendors": "Vendors & Contacts"
   },
   "Transactions": {
     "title": "Transactions",

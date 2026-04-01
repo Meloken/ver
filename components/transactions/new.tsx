@@ -11,6 +11,8 @@ import { getCategories } from "@/models/categories"
 import { getCurrencies } from "@/models/currencies"
 import { getProjects } from "@/models/projects"
 import { getSettings } from "@/models/settings"
+import { getWallets } from "@/models/wallets"
+import { getVendors } from "@/models/vendors"
 import { Button } from "../ui/button"
 import TransactionCreateForm from "./create"
 import { getTranslations } from "next-intl/server"
@@ -28,6 +30,8 @@ export async function NewTransactionDialog({
   const currencies = await getCurrencies(user.id)
   const settings = await getSettings(user.id)
   const projects = await getProjects(user.id)
+  const wallets = await getWallets(user.id)
+  const vendors = await getVendors(user.id)
   
   const cookieStore = await cookies()
   const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
@@ -49,6 +53,8 @@ export async function NewTransactionDialog({
           currencies={currencies}
           settings={settings}
           projects={projects}
+          wallets={wallets}
+          vendors={vendors}
         />
       </DialogContent>
     </Dialog>

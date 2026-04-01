@@ -7,8 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -18,6 +18,8 @@ model User {
   avatar              String?
   settings            Setting[]
   categories          Category[]
+  wallets             Wallet[]
+  vendors             Vendor[]
   projects            Project[]
   fields              Field[]
   files               File[]
@@ -136,6 +138,38 @@ model Project {
   @@map("projects")
 }
 
+model Wallet {
+  id           String        @id @default(uuid())
+  userId       String        @map("user_id")
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code         String
+  name         String
+  currency     String        @default("TRY")
+  balance      Float         @default(0)
+  transactions Transaction[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@unique([userId, code])
+  @@map("wallets")
+}
+
+model Vendor {
+  id           String        @id @default(uuid())
+  userId       String        @map("user_id")
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code         String
+  name         String
+  type         String        @default("supplier")
+  balance      Float         @default(0)
+  transactions Transaction[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@unique([userId, code])
+  @@map("vendors")
+}
+
 model Field {
   id                  String   @id @default(uuid())
   userId              String   @map("user_id")
@@ -191,6 +225,10 @@ model Transaction {
   categoryCode          String?   @map("category_code")
   project               Project?  @relation(fields: [projectCode, userId], references: [code, userId])
   projectCode           String?   @map("project_code")
+  wallet                Wallet?   @relation(fields: [walletCode, userId], references: [code, userId])
+  walletCode            String?   @map("wallet_code")
+  vendor                Vendor?   @relation(fields: [vendorCode, userId], references: [code, userId])
+  vendorCode            String?   @map("vendor_code")
   issuedAt              DateTime? @map("issued_at")
   createdAt             DateTime  @default(now()) @map("created_at")
   updatedAt             DateTime  @updatedAt @map("updated_at")

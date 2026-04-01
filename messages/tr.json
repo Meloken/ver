@@ -11,7 +11,9 @@
     "thankAuthor": "Yazara Teşekkür Et",
     "language": "Dil",
     "subscriptions": "Abonelikler",
-    "budgets": "Bütçeler"
+    "budgets": "Bütçeler",
+    "wallets": "Kasalar & Bankalar",
+    "vendors": "Cari & Firmalar"
   },
   "Transactions": {
     "title": "İşlemler",

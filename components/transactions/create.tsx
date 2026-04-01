@@ -6,9 +6,11 @@ import { FormSelectCategory } from "@/components/forms/select-category"
 import { FormSelectCurrency } from "@/components/forms/select-currency"
 import { FormSelectProject } from "@/components/forms/select-project"
 import { FormSelectType } from "@/components/forms/select-type"
+import { FormSelectWallet } from "@/components/forms/select-wallet"
+import { FormSelectVendor } from "@/components/forms/select-vendor"
 import { FormInput, FormTextarea } from "@/components/forms/simple"
 import { Button } from "@/components/ui/button"
-import { Category, Currency, Project } from "@/prisma/client"
+import { Category, Currency, Project, Wallet, Vendor } from "@/prisma/client"
 import { format } from "date-fns"
 import { Import, Loader2 } from "lucide-react"
 import Link from "next/link"
@@ -26,6 +28,8 @@ export default function TransactionCreateForm({
   projects: Project[]
   currencies: Currency[]
   settings: Record<string, string>
+  wallets: Wallet[]
+  vendors: Vendor[]
 }) {
   const router = useRouter()
   const [createState, createAction, isCreating] = useActionState(createTransactionAction, null)
@@ -39,8 +43,10 @@ export default function TransactionCreateForm({
     currencyCode: settings.default_currency,
     convertedCurrencyCode: settings.default_currency,
     type: settings.default_type,
-    categoryCode: settings.default_category,
-    projectCode: settings.default_project,
+    categoryCode: settings.default_category || "",
+    projectCode: settings.default_project || "",
+    walletCode: "",
+    vendorCode: "",
     issuedAt: format(new Date(), "yyyy-MM-dd"),
     note: "",
   })
@@ -109,6 +115,24 @@ export default function TransactionCreateForm({
           name="projectCode"
           defaultValue={formData.projectCode}
           placeholder={t("selectProject")}
+        />
+      </div>
+
+      <div className="flex flex-row gap-4">
+        <FormSelectWallet
+          title="Kasa / Banka"
+          wallets={wallets}
+          name="walletCode"
+          defaultValue={formData.walletCode}
+          placeholder="Ödendiği Kasa"
+        />
+
+        <FormSelectVendor
+          title="Firma / Cari"
+          vendors={vendors}
+          name="vendorCode"
+          defaultValue={formData.vendorCode}
+          placeholder="İlgili Firma"
         />
       </div>
 

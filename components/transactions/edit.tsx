@@ -157,7 +157,7 @@ export default function TransactionEditForm({
           <>
             {formData.convertedTotal !== null && (
               <FormInput
-                title={tCreate("convertedTo", { currency: formData.convertedCurrencyCode || "UNKNOWN CURRENCY" })}
+                title={tCreate("convertedTo", { currency: formData.convertedCurrencyCode || settings.default_currency })}
                 type="number"
                 step="0.01"
                 name="convertedTotal"

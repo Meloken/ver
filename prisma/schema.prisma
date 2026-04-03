@@ -160,6 +160,7 @@ model Category {
   createdAt    DateTime      @default(now()) @map("created_at")
 
   @@unique([userId, code])
+  @@index([workspaceId])
   @@map("categories")
 }
 
@@ -177,6 +178,7 @@ model Project {
   createdAt    DateTime      @default(now()) @map("created_at")
 
   @@unique([userId, code])
+  @@index([workspaceId])
   @@map("projects")
 }
 
@@ -195,6 +197,7 @@ model Wallet {
   updatedAt    DateTime      @updatedAt @map("updated_at")
 
   @@unique([userId, code])
+  @@index([workspaceId])
   @@map("wallets")
 }
 
@@ -213,6 +216,7 @@ model Vendor {
   updatedAt    DateTime      @updatedAt @map("updated_at")
 
   @@unique([userId, code])
+  @@index([workspaceId])
   @@map("vendors")
 }
 
@@ -289,6 +293,7 @@ model Transaction {
   @@index([name])
   @@index([merchant])
   @@index([total])
+  @@index([workspaceId])
   @@map("transactions")
 }
 
@@ -347,6 +352,7 @@ model Subscription {
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
   @@index([userId])
+  @@index([workspaceId])
   @@map("subscriptions")
 }
 
@@ -365,6 +371,7 @@ model Budget {
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@unique([userId, categoryCode, period])
+  @@index([workspaceId])
   @@map("budgets")
 }
 
@@ -384,6 +391,7 @@ model Customer {
   updatedAt DateTime  @updatedAt @map("updated_at")
 
   @@index([userId])
+  @@index([workspaceId])
   @@map("customers")
 }
 
@@ -410,5 +418,6 @@ model Invoice {
   @@unique([userId, invoiceNumber])
   @@index([userId])
   @@index([customerId])
+  @@index([workspaceId])
   @@map("invoices")
 }

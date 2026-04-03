@@ -10,6 +10,7 @@ import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { prisma } from "./db"
 import { resend, sendOTPCodeEmail } from "./email"
+import { getOrCreateDefaultWorkspace } from "@/models/workspaces"
 
 export type UserProfile = {
   id: string
@@ -112,4 +113,8 @@ export function isAiBalanceExhausted(user: User) {
     return false
   }
   return user.aiBalance <= 0
+}
+
+export async function getCurrentWorkspace(user: User) {
+  return await getOrCreateDefaultWorkspace(user.id, user.name)
 }

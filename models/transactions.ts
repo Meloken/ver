@@ -135,12 +135,17 @@ export const getTransactionsByFileId = cache(async (fileId: string, userId: stri
 export const createTransaction = async (userId: string, data: TransactionData): Promise<Transaction> => {
   const { standard, extra } = await splitTransactionDataExtraFields(data, userId)
 
+  const defaultMember = await prisma.workspaceMember.findFirst({
+    where: { userId },
+  })
+
   return await prisma.transaction.create({
     data: {
       ...standard,
       extra: extra,
       items: data.items as Prisma.InputJsonValue,
       userId,
+      workspaceId: defaultMember?.workspaceId,
     },
   })
 }

@@ -20,9 +20,10 @@ import { createTransaction, TransactionData, updateTransactionFiles } from "@/mo
 import { updateUser } from "@/models/users"
 import { Category, Field, File, Project, Transaction } from "@/prisma/client"
 import { randomUUID } from "crypto"
-import { mkdir, readFile, rename, writeFile } from "fs/promises"
+import { mkdir, readFile, rename, writeFile, unlink } from "fs/promises"
 import { revalidatePath } from "next/cache"
 import path from "path"
+import { prisma } from "@/lib/db"
 
 export async function analyzeFileAction(
   file: File,
@@ -51,32 +52,43 @@ export async function analyzeFileAction(
     }
   }
 
-  let attachments: AnalyzeAttachment[] = []
+  // PRE-DEDUCT: Atomic deduction to prevent TOCTOU race condition exploits
+  await updateUser(user.id, { aiBalance: { decrement: 1 } })
+
   try {
-    attachments = await loadAttachmentsForAI(user, file)
-  } catch (error) {
-    console.error("Failed to retrieve files:", error)
-    return { success: false, error: "Failed to retrieve files: " + error }
+    let attachments: AnalyzeAttachment[] = []
+    try {
+      attachments = await loadAttachmentsForAI(user, file)
+    } catch (error) {
+      console.error("Failed to retrieve files:", error)
+      await updateUser(user.id, { aiBalance: { increment: 1 } }) // Refund
+      return { success: false, error: "Failed to retrieve files: " + error }
+    }
+
+    const prompt = buildLLMPrompt(
+      settings.prompt_analyse_new_file || DEFAULT_PROMPT_ANALYSE_NEW_FILE,
+      fields,
+      categories,
+      projects
+    )
+
+    const schema = fieldsToJsonSchema(fields)
+
+    const results = await analyzeTransaction(prompt, schema, attachments, file.id, user.id)
+
+    console.log("Analysis results:", results)
+
+    // Refund if analysis completely failed or used 0 tokens
+    if (!results.success || results.data?.tokensUsed === 0) {
+      await updateUser(user.id, { aiBalance: { increment: 1 } })
+    }
+
+    return results
+  } catch (error: any) {
+    // Unexpected crash, refund
+    await updateUser(user.id, { aiBalance: { increment: 1 } })
+    return { success: false, error: "Internal Analysis Error: " + error?.message }
   }
-
-  const prompt = buildLLMPrompt(
-    settings.prompt_analyse_new_file || DEFAULT_PROMPT_ANALYSE_NEW_FILE,
-    fields,
-    categories,
-    projects
-  )
-
-  const schema = fieldsToJsonSchema(fields)
-
-  const results = await analyzeTransaction(prompt, schema, attachments, file.id, user.id)
-
-  console.log("Analysis results:", results)
-
-  if (results.data?.tokensUsed && results.data.tokensUsed > 0) {
-    await updateUser(user.id, { aiBalance: { decrement: 1 } })
-  }
-
-  return results
 }
 
 export async function saveFileAsTransactionAction(
@@ -167,7 +179,10 @@ export async function splitFileIntoItemsAction(
     const originalFilePath = safePathJoin(userUploadsDirectory, originalFile.path)
     const fileContent = await readFile(originalFilePath)
 
-    // Create a new file for each item
+    const fileRecordsToCreate: any[] = []
+    const createdFilePaths: string[] = []
+
+    // 1. Create all physical files and prepare DB records
     for (const item of items) {
       const fileUuid = randomUUID()
       const fileName = `${originalFile.filename}-part-${item.name}`
@@ -179,14 +194,17 @@ export async function splitFileIntoItemsAction(
 
       // Copy the original file content
       await writeFile(fullFilePath, fileContent)
+      createdFilePaths.push(fullFilePath)
 
-      // Create file record in database with the item data cached
-      await createFile(user.id, {
+      // Prepare file record
+      fileRecordsToCreate.push({
+        userId: user.id,
         id: fileUuid,
         filename: fileName,
         path: relativeFilePath,
         mimetype: originalFile.mimetype,
         metadata: originalFile.metadata || undefined,
+        isReviewed: false,
         isSplitted: true,
         cachedParseResult: {
           name: item.name,
@@ -202,6 +220,17 @@ export async function splitFileIntoItemsAction(
           text: item.text,
         },
       })
+    }
+
+    // 2. Atomic Database Insertion
+    try {
+      await prisma.file.createMany({ data: fileRecordsToCreate })
+    } catch (dbError) {
+      // If DB fails, rollback file creations to prevent orphan files
+      for (const fp of createdFilePaths) {
+        await unlink(fp).catch(() => null)
+      }
+      throw new Error("Veritabanı kaydı başarısız oldu, dosyalar geri alındı. Hata: " + dbError)
     }
 
     // Delete the original file

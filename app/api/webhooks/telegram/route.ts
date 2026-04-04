@@ -58,9 +58,24 @@ export async function POST(request: Request) {
     const downloadRes = await fetch(`https://api.telegram.org/file/bot${BOT_TOKEN}/${tgFilePath}`)
     const buffer = await downloadRes.arrayBuffer()
 
-    // 3. Find the primary user of the system
-    const user = await prisma.user.findFirst()
-    if (!user) return new NextResponse("No user in database", { status: 500 })
+    // 3. Find the user mapped to this telegramChatId
+    const user = await prisma.user.findUnique({
+      where: { telegramChatId: String(message.chat.id) }
+    })
+    
+    if (!user) {
+      // Respond to user letting them know they are not registered
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: message.chat.id,
+          text: `❌ Sistem hatası. Bu Telegram hesabı platformdaki hiçbir şirkete/kullanıcıya bağlı değil.\n\nLütfen platformdaki 'Ayarlar' sayfanıza girin ve Telegram Chat ID kısmına şu kimlik numaranızı yazarak kaydedin: ${message.chat.id}`,
+          reply_to_message_id: message.message_id
+        })
+      })
+      return new NextResponse("User not matched", { status: 200 }) // Return 200 to prevent telegram from retrying
+    }
 
     // 4. Save to local Unsorted folder
     const userDir = getUserUploadsDirectory(user)

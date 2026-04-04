@@ -3,7 +3,7 @@
 import { ActionState } from "@/lib/actions"
 import { getCurrentUser } from "@/lib/auth"
 import { EXPORT_AND_IMPORT_FIELD_MAP } from "@/models/export_and_import"
-import { createTransaction } from "@/models/transactions"
+import { createTransaction, createTransactionsBulk } from "@/models/transactions"
 import { Transaction } from "@/prisma/client"
 import { parse } from "@fast-csv/parse"
 import { revalidatePath } from "next/cache"
@@ -51,6 +51,8 @@ export async function saveTransactionsAction(
   try {
     const rows = JSON.parse(formData.get("rows") as string) as Record<string, unknown>[]
 
+    const transactionsData: Record<string, unknown>[] = []
+
     for (const row of rows) {
       const transactionData: Record<string, unknown> = {}
       for (const [fieldCode, value] of Object.entries(row)) {
@@ -62,8 +64,10 @@ export async function saveTransactionsAction(
         }
       }
 
-      await createTransaction(user.id, transactionData)
+      transactionsData.push(transactionData)
     }
+
+    await createTransactionsBulk(user.id, transactionsData)
 
     revalidatePath("/import/csv")
     revalidatePath("/transactions")

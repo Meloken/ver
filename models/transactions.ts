@@ -150,6 +150,29 @@ export const createTransaction = async (userId: string, data: TransactionData): 
   })
 }
 
+export const createTransactionsBulk = async (userId: string, dataArray: TransactionData[]) => {
+  const defaultMember = await prisma.workspaceMember.findFirst({
+    where: { userId },
+  })
+
+  const recordsToInsert = []
+
+  for (const data of dataArray) {
+    const { standard, extra } = await splitTransactionDataExtraFields(data, userId)
+    recordsToInsert.push({
+      ...standard,
+      extra: extra,
+      items: (data.items || []) as Prisma.InputJsonValue,
+      userId,
+      workspaceId: defaultMember?.workspaceId,
+    })
+  }
+
+  return await prisma.transaction.createMany({
+    data: recordsToInsert,
+  })
+}
+
 export const updateTransaction = async (id: string, userId: string, data: TransactionData): Promise<Transaction> => {
   const { standard, extra } = await splitTransactionDataExtraFields(data, userId)
 
@@ -189,6 +212,36 @@ export const deleteTransaction = async (id: string, userId: string): Promise<Tra
 }
 
 export const bulkDeleteTransactions = async (ids: string[], userId: string) => {
+  // 1. Storage Leak Prevention: Find all linked files before deleting
+  const transactions = await prisma.transaction.findMany({
+    where: { id: { in: ids }, userId },
+    select: { files: true },
+  })
+
+  const uniqueFileIds = new Set<string>()
+  for (const t of transactions) {
+    const fileArray = Array.isArray(t.files) ? t.files : []
+    for (const fId of fileArray as string[]) {
+      uniqueFileIds.add(fId)
+    }
+  }
+
+  // 2. Safely delete files that aren't used by any OTHER transactions
+  for (const fileId of Array.from(uniqueFileIds)) {
+    const outsideUsages = await prisma.transaction.count({
+      where: {
+        files: { string_contains: fileId },
+        userId,
+        id: { notIn: ids },
+      },
+    })
+
+    if (outsideUsages === 0) {
+      await deleteFile(fileId, userId)
+    }
+  }
+
+  // 3. Delete SQL Records
   return await prisma.transaction.deleteMany({
     where: { id: { in: ids }, userId },
   })
